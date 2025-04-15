@@ -1,21 +1,16 @@
 package client;
 
-import org.noear.folkmq.FolkMQ;
-import org.noear.folkmq.client.MqClient;
-import org.noear.folkmq.client.MqMessage;
+import org.noear.solon.ai.mcp.client.McpClientToolProvider;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientTest {
     public static void main(String[] args) throws Exception {
-        MqClient client = FolkMQ.createClient("folkmq://localhost:18602")
-                .nameAs("demoapp")
-                .connect();
+        McpClientToolProvider toolProvider = new McpClientToolProvider("http://localhost:8080");
 
-        client.subscribe("demo.topic", message -> {
-            System.out.println(message);
-        });
-
-        for (int i = 0; i < 10; i++) {
-            client.publish("demo.topic", new MqMessage("hello" + i));
-        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("location", "杭州");
+        toolProvider.callToolAsText("getWeather", map);
     }
 }

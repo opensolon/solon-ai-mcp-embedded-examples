@@ -28,7 +28,7 @@ public class McpServerConfig extends Handler implements IPlugin {
 
     @Override
     public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {
-        if (target.startsWith("/folkmq/")) {
+        if (target.startsWith("/mcp/")) {
             Context ctx = new SolonServletContext(request, response);
 
             try {

@@ -1,12 +1,7 @@
 # 独立端口时可自己定义（且，使用 app.yml 配置）
 server.port: 8080
 
-# 避免与其它 token 冲突
-server.session.state.jwt.name: FOLKMQ-TOKEN
-
-# 消息控制台账号密码
-folkmq.admin: admin
-# 消息传输协议（tcp 或 ws）
-folkmq.schema: tcp
-# 消息传输端口（默认为 server.port + 10000）
-folkmq.transport.port: 0
+solon.ai.mcp.server:
+  enabled: true
+  sseEndpoint: "/mcp/sse"
+  enabledSseHeartbeat: true #启用心跳
