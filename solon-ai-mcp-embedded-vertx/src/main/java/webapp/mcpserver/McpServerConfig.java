@@ -19,7 +19,7 @@ public class McpServerConfig extends AbstractVerticle {
 
     @Override
     public void start() {
-        router.routeWithRegex("/folkmq.*").handler(req -> {
+        router.routeWithRegex("/mcp.*").handler(req -> {
             handler.handle(req.request());
         });
 

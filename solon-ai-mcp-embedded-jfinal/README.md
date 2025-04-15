@@ -1,5 +1,8 @@
 # solon-ai-mcp-embedded-examples
 
+jfinal-undertow 不支持异步（需要支持后，才可使用），使用时会提示：
+
+* UT010026: Async is not supported for this request, as not all filters or Servlets were marked as supporting async
 
 ### 示例
 

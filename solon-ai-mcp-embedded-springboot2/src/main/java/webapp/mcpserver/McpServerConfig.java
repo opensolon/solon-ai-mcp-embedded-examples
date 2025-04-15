@@ -30,7 +30,7 @@ public class McpServerConfig {
     public FilterRegistrationBean folkmqAdmin(){
         FilterRegistrationBean<SolonServletFilter> filter = new FilterRegistrationBean<>();
         filter.setName("SolonFilter");
-        filter.addUrlPatterns("/folkmq/*");
+        filter.addUrlPatterns("/mcp/*");
         filter.setFilter(new SolonServletFilter());
         return filter;
     }

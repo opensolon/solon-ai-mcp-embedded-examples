@@ -32,7 +32,7 @@ public class McpServerConfig {
         //通过 Servlet Filter 实现 http 能力对接
         FilterRegistrationBean<SolonServletFilter> filter = new FilterRegistrationBean<>();
         filter.setName("SolonFilter");
-        filter.addUrlPatterns("/folkmq/*");
+        filter.addUrlPatterns("/mcp/*");
         filter.setFilter(new SolonServletFilter());
         return filter;
     }
