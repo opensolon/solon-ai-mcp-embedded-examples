@@ -15,6 +15,7 @@
     <modules>
         <module>solon-ai-mcp-embedded-solon</module>
         <module>solon-ai-mcp-embedded-jfinal</module>
+        <module>solon-ai-mcp-embedded-jfinal_port</module>
         <module>solon-ai-mcp-embedded-springboot2</module>
         <module>solon-ai-mcp-embedded-springboot2_port</module><!-- 独立端口 -->
         <module>solon-ai-mcp-embedded-springboot3</module>
