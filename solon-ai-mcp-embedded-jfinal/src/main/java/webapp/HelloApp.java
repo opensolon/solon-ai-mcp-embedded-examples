@@ -15,7 +15,12 @@ public class HelloApp extends JFinalConfig {
      *      启动入口类放置用于启动的 main 方法
      */
     public static void main(String[] args) {
-        UndertowServer.start(HelloApp.class, 8080, false);
+        UndertowServer.create(HelloApp.class)
+                .setDevMode(false)
+                .setPort(8080)
+                .onDeploy((cl, di) -> {
+                    di.getFilters().get("jfinal").setAsyncSupported(true);
+                }).start();
     }
 
     public void configConstant(Constants me) {
