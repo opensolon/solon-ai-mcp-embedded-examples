@@ -4,9 +4,6 @@
 ### 示例
 
 
-
-
-
 | 示例                                     | 说明               |
 |----------------------------------------|------------------|
 | solon-ai-mcp-embedded-jfinal           |                  |
@@ -18,13 +15,3 @@
 | solon-ai-mcp-embedded-springboot3_port | mcp-server 独立端口  |
 | solon-ai-mcp-embedded-vertx            |                  |
 | solon-ai-mcp-embedded-vertx_port       | mcp-server 独立端口  |
-
-
-
-
-
-
-### 说明
-
-* 控制台端口，可配置
-* 消息传输端口，可配置
