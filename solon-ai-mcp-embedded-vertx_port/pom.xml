@@ -36,7 +36,7 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-boot-smarthttp</artifactId>
+            <artifactId>solon-boot-vertx</artifactId>
             <version>3.2.0</version>
         </dependency>
 
