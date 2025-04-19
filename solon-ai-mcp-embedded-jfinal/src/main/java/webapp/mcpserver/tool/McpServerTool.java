@@ -2,9 +2,9 @@ package webapp.mcpserver.tool;
 
 import org.noear.solon.ai.chat.annotation.ToolMapping;
 import org.noear.solon.ai.chat.annotation.ToolParam;
-import org.noear.solon.annotation.Component;
+import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 
-@Component
+@McpServerEndpoint(sseEndpoint = "/mcp/sse")
 public class McpServerTool {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）

@@ -7,7 +7,9 @@ import java.util.Map;
 
 public class ClientTest {
     public static void main(String[] args) throws Exception {
-        McpClientToolProvider toolProvider = new McpClientToolProvider("http://localhost:8602/mcp/sse");
+        McpClientToolProvider toolProvider = McpClientToolProvider.builder()
+                .apiUrl("http://localhost:8602/mcp/sse")
+                .build();
 
         Map<String, Object> map = new HashMap<>();
         map.put("location", "杭州");

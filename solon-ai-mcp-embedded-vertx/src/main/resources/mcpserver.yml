@@ -1,7 +1,2 @@
-# 独立端口时可自己定义（且，使用 app.yml 配置）
+# 独立端口时可自己定义
 server.port: 8080
-
-solon.ai.mcp.server:
-  enabled: true
-  sseEndpoint: "/mcp/sse"
-  enabledSseHeartbeat: true #启用心跳

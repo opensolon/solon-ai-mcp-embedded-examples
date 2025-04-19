@@ -1,7 +1,2 @@
 # 如果使用 servelt 则使用与 jfinal 相同的等口
 server.port: 8080
-
-solon.ai.mcp.server:
-  enabled: true
-  sseEndpoint: "/mcp/sse"
-  enabledSseHeartbeat: true #启用心跳
