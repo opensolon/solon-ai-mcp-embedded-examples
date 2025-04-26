@@ -5,10 +5,9 @@ import org.noear.solon.ai.chat.annotation.ToolParam;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 
 /**
- * 自动构建服务端点服务
+ * 用于手动构建
  * */
-@McpServerEndpoint(sseEndpoint = "/mcp/demo1/sse")
-public class McpServerTool {
+public class McpServerTool2 {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）
     //

@@ -3,9 +3,12 @@ package webapp.mcpserver;
 import com.jfinal.handler.Handler;
 import com.jfinal.plugin.IPlugin;
 import org.noear.solon.Solon;
+import org.noear.solon.ai.chat.tool.MethodToolProvider;
+import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.ContextUtil;
 import org.noear.solon.web.servlet.SolonServletContext;
+import webapp.mcpserver.tool.McpServerTool2;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 public class McpServerConfig extends Handler implements IPlugin {
     public boolean start() {
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
+
+        //手动构建
+        McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
+                .sseEndpoint("/mcp/demo2/sse")
+                .build();
+        serverEndpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
+        serverEndpointProvider.postStart();
+
         return true;
     }
 
