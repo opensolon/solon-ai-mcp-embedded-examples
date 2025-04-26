@@ -20,7 +20,7 @@ public class McpServerConfig extends Handler implements IPlugin {
     public boolean start() {
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
 
-        //手动构建
+        //手动构建 mcp 服务端点
         McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
                 .sseEndpoint("/mcp/demo2/sse")
                 .build();
