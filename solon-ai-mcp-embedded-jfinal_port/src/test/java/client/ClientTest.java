@@ -1,5 +1,6 @@
 package client;
 
+import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.mcp.client.McpClientToolProvider;
 
 import java.util.HashMap;
@@ -28,5 +29,14 @@ public class ClientTest {
         rst = toolProvider.callToolAsText("getWeather", map);
         System.out.println(rst);
         assert "晴，14度".equals(rst);
+    }
+
+    public void demo(McpClientToolProvider toolProvider) throws Exception {
+        ChatModel chatModel = ChatModel.of("...")
+                .defaultToolsAdd(toolProvider) //添加默认工具
+                .build();
+
+        chatModel.prompt("杭州今天的天气怎么样？")
+                .call();
     }
 }
