@@ -15,7 +15,7 @@ public class McpServerConfig extends AbstractVerticle {
     public void start() {
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
 
-        //手动构建 mcp 服务端点
+        //手动构建 mcp 服务端点（只是演示，可以去掉）
         McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
                 .sseEndpoint("/mcp/demo2/sse")
                 .build();

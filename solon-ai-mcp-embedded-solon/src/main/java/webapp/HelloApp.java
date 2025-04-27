@@ -12,7 +12,7 @@ import webapp.mcpserver.tool.McpServerTool2;
 public class HelloApp {
     public static void main(String[] args) {
         Solon.start(HelloApp.class, args, app -> {
-            //手动构建 mcp 服务端点
+            //手动构建 mcp 服务端点（只是演示，可以去掉）
             McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
                     .sseEndpoint("/mcp/demo2/sse")
                     .build();
