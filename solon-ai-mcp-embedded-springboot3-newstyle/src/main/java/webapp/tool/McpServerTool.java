@@ -1,18 +1,23 @@
-package webapp.mcpserver.tool;
+package webapp.tool;
 
 import org.noear.solon.ai.annotation.PromptMapping;
 import org.noear.solon.ai.annotation.ResourceMapping;
 import org.noear.solon.ai.annotation.ToolMapping;
 import org.noear.solon.ai.chat.message.ChatMessage;
+import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.annotation.Param;
+import org.springframework.stereotype.Component;
+import webapp.mcpserver.IMcpServerEndpoint;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * 用于手动构建（仅供参考，可以删掉）
+ * 自动构建服务端点服务（使用 springboot 容器）
  * */
-public class McpServerTool2 {
+@Component //注意这个注解别用错了（solon 里也有同名的）
+@McpServerEndpoint(sseEndpoint = "/mcp/demo1/sse")
+public class McpServerTool implements IMcpServerEndpoint {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）
     //

@@ -1,4 +1,4 @@
-package webapp.mcpserver.tool;
+package webapp.tool;
 
 import org.noear.solon.ai.annotation.PromptMapping;
 import org.noear.solon.ai.annotation.ResourceMapping;

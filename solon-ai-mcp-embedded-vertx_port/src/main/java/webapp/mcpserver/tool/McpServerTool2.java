@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * 用于手动构建
+ * 用于手动构建（仅供参考，可以删掉）
  * */
 public class McpServerTool2 {
     //

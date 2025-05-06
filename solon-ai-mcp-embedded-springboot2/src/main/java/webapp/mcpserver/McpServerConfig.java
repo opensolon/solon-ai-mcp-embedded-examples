@@ -41,7 +41,7 @@ public class McpServerConfig {
     }
 
     @Bean
-    public FilterRegistrationBean folkmqAdmin(){
+    public FilterRegistrationBean mcpServerFilter(){
         FilterRegistrationBean<SolonServletFilter> filter = new FilterRegistrationBean<>();
         filter.setName("SolonFilter");
         filter.addUrlPatterns("/mcp/*");
