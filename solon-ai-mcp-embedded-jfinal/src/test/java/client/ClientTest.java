@@ -37,10 +37,19 @@ public class ClientTest {
                 .apiUrl("http://localhost:8080/mcp/demo2/sse")
                 .build();
 
+        //工具
         map = Collections.singletonMap("location", "杭州");
         rst = toolProvider.callToolAsText("getWeather", map).getContent();
         System.out.println(rst);
         assert "晴，14度".equals(rst);
+
+        //提示语
+        messageList = toolProvider.getPromptAsMessages("askQuestion", Collections.singletonMap("topic", "demo"));
+        System.out.println(messageList);
+
+        //资源
+        resourceContent = toolProvider.readResourceAsText("config://app-version").getContent();
+        System.out.println(resourceContent);
     }
 
     public void demo(McpClientToolProvider toolProvider) throws Exception {

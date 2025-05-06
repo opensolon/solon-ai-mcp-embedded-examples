@@ -3,6 +3,8 @@ package webapp.mcpserver;
 import org.noear.solon.Solon;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
+import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
+import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.web.servlet.SolonServletFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +28,8 @@ public class McpServerConfig {
                 .sseEndpoint("/mcp/demo2/sse")
                 .build();
         serverEndpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
+        serverEndpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
+        serverEndpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
         serverEndpointProvider.postStart();
     }
 

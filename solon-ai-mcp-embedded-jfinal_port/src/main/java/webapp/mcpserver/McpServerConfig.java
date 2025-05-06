@@ -4,6 +4,8 @@ import com.jfinal.plugin.IPlugin;
 import org.noear.solon.Solon;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
+import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
+import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import webapp.mcpserver.tool.McpServerTool2;
 
 /**
@@ -18,6 +20,8 @@ public class McpServerConfig implements IPlugin {
                 .sseEndpoint("/mcp/demo2/sse")
                 .build();
         serverEndpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
+        serverEndpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
+        serverEndpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
         serverEndpointProvider.postStart();
 
         return true;
