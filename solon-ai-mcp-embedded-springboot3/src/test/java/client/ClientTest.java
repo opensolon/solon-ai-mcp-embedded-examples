@@ -1,9 +1,12 @@
 package client;
 
 import org.noear.solon.ai.chat.ChatModel;
+import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.mcp.client.McpClientToolProvider;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ClientTest {
@@ -12,11 +15,21 @@ public class ClientTest {
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("location", "杭州");
-        String rst = toolProvider.callToolAsText("getWeather", map);
+        //工具
+        Map<String, Object> map = Collections.singletonMap("location", "杭州");
+        String rst = toolProvider.callToolAsText("getWeather", map).getContent();
         System.out.println(rst);
         assert "晴，14度".equals(rst);
+
+        //提示语
+        List<ChatMessage> messageList = toolProvider.getPromptAsMessages("askQuestion", Collections.singletonMap("topic", "demo"));
+        System.out.println(messageList);
+
+        //资源
+        String resourceContent = toolProvider.readResourceAsText("config://app-version").getContent();
+        System.out.println(resourceContent);
+
+        System.out.println("---------------");
 
         /// /////////////////
 
@@ -25,11 +38,19 @@ public class ClientTest {
                 .apiUrl("http://localhost:8080/mcp/demo2/sse")
                 .build();
 
-        map = new HashMap<>();
-        map.put("location", "杭州");
-        rst = toolProvider.callToolAsText("getWeather", map);
+        //工具
+        map = Collections.singletonMap("location", "杭州");
+        rst = toolProvider.callToolAsText("getWeather", map).getContent();
         System.out.println(rst);
         assert "晴，14度".equals(rst);
+
+        //提示语
+        messageList = toolProvider.getPromptAsMessages("askQuestion", Collections.singletonMap("topic", "demo"));
+        System.out.println(messageList);
+
+        //资源
+        resourceContent = toolProvider.readResourceAsText("config://app-version").getContent();
+        System.out.println(resourceContent);
     }
 
     public void demo(McpClientToolProvider toolProvider) throws Exception {
