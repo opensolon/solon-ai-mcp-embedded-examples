@@ -6,6 +6,7 @@
     * 即 `@McpServerEndpoint` 注解的类，放在 `mcpserver/tool/` 下面，会被自动扫描
     * 如果没有这种 “包括关系”，要使用 `@Import` 导入注解。具体从 solon 官网了解
 
+* 可以直接运行 `test/java/client/ClientTest` 单测（会自动启动服务端）
 
 
 ### 示例

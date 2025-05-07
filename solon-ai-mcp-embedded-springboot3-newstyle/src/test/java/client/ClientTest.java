@@ -1,16 +1,21 @@
 package client;
 
+import org.junit.jupiter.api.Test;
 import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.mcp.client.McpClientProvider;
+import org.noear.solon.test.SolonTest;
+import webapp.HelloApp;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SolonTest(HelloApp.class)
 public class ClientTest {
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void case1() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
