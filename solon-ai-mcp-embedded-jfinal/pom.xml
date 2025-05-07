@@ -10,6 +10,10 @@
     <version>demo</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <solon.version>3.2.2-M5</solon.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.jfinal</groupId>
@@ -26,19 +30,19 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-lib</artifactId>
-            <version>3.2.2-M5</version>
+            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web-servlet</artifactId>
-            <version>3.2.2-M5</version>
+            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-ai-mcp</artifactId>
-            <version>3.2.2-M5</version>
+            <version>${solon.version}</version>
         </dependency>
     </dependencies>
 
