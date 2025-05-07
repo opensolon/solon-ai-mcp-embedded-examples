@@ -2,7 +2,7 @@ package client;
 
 import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.mcp.McpChannel;
-import org.noear.solon.ai.mcp.client.McpClientToolProvider;
+import org.noear.solon.ai.mcp.client.McpClientProvider;
 import org.noear.solon.ai.mcp.client.McpServerParameters;
 
 import java.util.Collections;
@@ -11,7 +11,7 @@ import java.util.Collections;
 public class StdioDemo {
     public static void test() {
         //服务端不能开启控制台的日志，不然会污染协议流
-        McpClientToolProvider mcpClient = McpClientToolProvider.builder()
+        McpClientProvider mcpClient = McpClientProvider.builder()
                 .channel(McpChannel.STDIO) //表示使用 stdio
                 .serverParameters(McpServerParameters.builder("npx")
                         .args("/c", "npx.cmd", "-y", "@modelcontextprotocol/server-everything", "dir")
@@ -28,7 +28,7 @@ public class StdioDemo {
         mcpClient.close();
     }
 
-    public void demo(McpClientToolProvider toolProvider) throws Exception {
+    public void demo(McpClientProvider toolProvider) throws Exception {
         ChatModel chatModel = ChatModel.of("...")
                 .defaultToolsAdd(toolProvider) //添加默认工具
                 .build();

@@ -2,7 +2,7 @@ package client;
 
 import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.chat.message.ChatMessage;
-import org.noear.solon.ai.mcp.client.McpClientToolProvider;
+import org.noear.solon.ai.mcp.client.McpClientProvider;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ClientTest {
     public static void main(String[] args) throws Exception {
-        McpClientToolProvider toolProvider = McpClientToolProvider.builder()
+        McpClientProvider toolProvider = McpClientProvider.builder()
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
@@ -34,7 +34,7 @@ public class ClientTest {
         /// /////////////////
 
 
-        toolProvider = McpClientToolProvider.builder()
+        toolProvider = McpClientProvider.builder()
                 .apiUrl("http://localhost:8080/mcp/demo2/sse")
                 .build();
 
@@ -53,7 +53,7 @@ public class ClientTest {
         System.out.println(resourceContent);
     }
 
-    public void demo(McpClientToolProvider toolProvider) throws Exception {
+    public void demo(McpClientProvider toolProvider) throws Exception {
         ChatModel chatModel = ChatModel.of("...")
                 .defaultToolsAdd(toolProvider) //添加默认工具
                 .build();
