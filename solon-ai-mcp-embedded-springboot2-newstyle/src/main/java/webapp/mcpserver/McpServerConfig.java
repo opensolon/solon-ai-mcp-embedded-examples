@@ -1,6 +1,7 @@
 package webapp.mcpserver;
 
 import org.noear.solon.Solon;
+import org.noear.solon.Utils;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
@@ -61,6 +62,13 @@ public class McpServerConfig {
             serverEndpointProvider.addPrompt(new MethodPromptProvider(serverEndpoint));
 
             serverEndpointProvider.postStart();
+
+            if (Utils.isNotEmpty(anno.name())) {
+                //手动转入 solon 容器
+                Solon.context().wrapAndPut(anno.name(), serverEndpointProvider);
+            }
+
+            //可以再把 serverEndpointProvider 手动转入 SpringBoot 容器
         }
 
         //为了能让这个 init 能正常运行
@@ -68,7 +76,7 @@ public class McpServerConfig {
     }
 
     @Bean
-    public FilterRegistrationBean mcpServerFilter(){
+    public FilterRegistrationBean mcpServerFilter() {
         FilterRegistrationBean<SolonServletFilter> filter = new FilterRegistrationBean<>();
         filter.setName("SolonFilter");
         filter.addUrlPatterns("/mcp/*");
