@@ -13,7 +13,7 @@ import java.util.Collection;
 /**
  * 自动构建服务端点服务
  * */
-@McpServerEndpoint(sseEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）

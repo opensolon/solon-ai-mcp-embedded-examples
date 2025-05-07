@@ -16,7 +16,7 @@ import java.util.Collection;
  * 自动构建服务端点服务（使用 springboot 容器）
  * */
 @Component //注意这个注解别用错了（solon 里也有同名的）
-@McpServerEndpoint(sseEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool implements IMcpServerEndpoint {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）
