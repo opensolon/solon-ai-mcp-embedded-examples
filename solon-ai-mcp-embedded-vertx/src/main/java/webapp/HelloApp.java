@@ -6,12 +6,15 @@ import io.vertx.ext.web.Router;
 import webapp.mcpserver.McpServerConfig;
 
 public class HelloApp extends AbstractVerticle {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Vertx vertx = Vertx.vertx();
         Router router = Router.router(vertx);
 
         vertx.deployVerticle(new HelloApp(router));
         vertx.deployVerticle(new McpServerConfig(router));
+
+        //上面是异步的，卡一下方便单测运行
+        Thread.sleep(1000);
     }
 
     private final Router router;
