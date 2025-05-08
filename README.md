@@ -1,6 +1,21 @@
 # solon-ai-mcp-embedded-examples
 
 
+### 说明
+
+示例内容包括：
+
+* llm
+  * chatModel 基本使用，及单测
+  * tool call 基本使用，及单测
+  * rag 基本使用，及单测
+    * embeddingModel
+    * repository
+    * splitter
+* mcp 
+  * server 基本使用
+  * client 基本使用，及单测
+
 ### 示例
 
 
