@@ -9,7 +9,7 @@ import webapp.HelloApp;
 public class LlmRagTest extends HttpTester {
     @Test
     public void rag_demo() throws Exception {
-        String rst = path("/rag/demo/").data("prompt", "solon 是谁开发的？").post();
+        String rst = path("/rag/demo").data("prompt", "solon 是谁开发的？").post();
         System.out.println(rst);
 
         assert rst != null && rst.length() > 0;
