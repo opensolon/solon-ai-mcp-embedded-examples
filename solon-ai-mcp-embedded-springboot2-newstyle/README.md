@@ -5,7 +5,7 @@
 
 ### 提醒
 
-* 可以直接运行 `test/java/client/ClientTest` 单测（会自动启动服务端）
+* 可以直接运行 `test/java/client/McpClientTest` 单测（会自动启动服务端）
 
 ### 示例
 
