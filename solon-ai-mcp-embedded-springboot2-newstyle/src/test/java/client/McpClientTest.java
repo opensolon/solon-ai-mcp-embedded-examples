@@ -9,12 +9,11 @@ import org.noear.solon.test.SolonTest;
 import webapp.HelloApp;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @SolonTest(HelloApp.class)
-public class ClientTest {
+public class McpClientTest {
     /**
      * 工具直接调用
      */

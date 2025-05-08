@@ -8,7 +8,7 @@ import org.noear.solon.ai.mcp.client.McpServerParameters;
 import java.util.Collections;
 
 
-public class StdioDemo {
+public class McpStdioDemo {
     public static void test() {
         //服务端不能开启控制台的日志，不然会污染协议流
         McpClientProvider mcpClient = McpClientProvider.builder()

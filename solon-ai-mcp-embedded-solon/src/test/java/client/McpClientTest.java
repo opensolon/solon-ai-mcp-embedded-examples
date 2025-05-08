@@ -9,19 +9,18 @@ import org.noear.solon.test.SolonTest;
 import webapp.HelloApp;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @SolonTest(HelloApp.class)
-public class ClientTest {
+public class McpClientTest {
     /**
      * 工具直接调用
      */
     @Test
     public void case1() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
-                .apiUrl("http://localhost:8602/mcp/demo1/sse")
+                .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
         //工具
@@ -44,7 +43,7 @@ public class ClientTest {
 
 
         toolProvider = McpClientProvider.builder()
-                .apiUrl("http://localhost:8602/mcp/demo2/sse")
+                .apiUrl("http://localhost:8080/mcp/demo2/sse")
                 .build();
 
         //工具
@@ -73,7 +72,7 @@ public class ClientTest {
     @Test
     public void case2() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
-                .apiUrl("http://localhost:8602/mcp/demo1/sse")
+                .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
         ChatModel chatModel = ChatModel.of(apiUrl)

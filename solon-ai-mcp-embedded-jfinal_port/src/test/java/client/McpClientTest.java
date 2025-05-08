@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @SolonTest(HelloApp.class)
-public class ClientTest {
+public class McpClientTest {
     /**
      * 工具直接调用
      */
