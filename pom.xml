@@ -13,17 +13,13 @@
     <description>Java project for solon-ai-mcp-embedded-examples</description>
 
     <modules>
-        <module>solon-ai-mcp-embedded-solon</module>
-        <module>solon-ai-mcp-embedded-jfinal</module>
-        <module>solon-ai-mcp-embedded-jfinal_port</module>
-        <module>solon-ai-mcp-embedded-springboot2</module>
-        <module>solon-ai-mcp-embedded-springboot2-newstyle</module>
-        <module>solon-ai-mcp-embedded-springboot2_port</module><!-- 独立端口 -->
-        <module>solon-ai-mcp-embedded-springboot3</module>
-        <module>solon-ai-mcp-embedded-springboot3-newstyle</module>
-        <module>solon-ai-mcp-embedded-springboot3_port</module><!-- 独立端口 -->
-        <module>solon-ai-mcp-embedded-vertx</module>
-        <module>solon-ai-mcp-embedded-vertx_port</module><!-- 独立端口 -->
+        <module>solon-ai-embedded-solon</module>
+        <module>solon-ai-embedded-jfinal</module>
+        <module>solon-ai-embedded-springboot2</module>
+        <module>solon-ai-embedded-springboot2-newstyle</module>
+        <module>solon-ai-embedded-springboot3</module>
+        <module>solon-ai-embedded-springboot3-newstyle</module>
+        <module>solon-ai-embedded-vertx</module>
     </modules>
 
     <build>
