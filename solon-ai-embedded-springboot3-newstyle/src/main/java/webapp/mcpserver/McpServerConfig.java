@@ -13,6 +13,7 @@ import org.noear.solon.web.servlet.SolonServletFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.AnnotationUtils;
 import webapp.tool.McpServerTool2;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class McpServerConfig {
     public McpServerConfig init(List<IMcpServerEndpoint> serverEndpoints) {
         //提取实现容器里 IMcpServerEndpoint 接口的 bean ，并注册为服务端点
         for (IMcpServerEndpoint serverEndpoint : serverEndpoints) {
-            McpServerEndpoint anno = serverEndpoint.getClass().getAnnotation(McpServerEndpoint.class);
+            McpServerEndpoint anno = AnnotationUtils.findAnnotation(serverEndpoint.getClass(), McpServerEndpoint.class);
 
             if (anno == null) {
                 continue;
