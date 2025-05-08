@@ -31,7 +31,7 @@ public class RagConfig {
 
     //知识库初始化
     @Bean
-    public RepositoryStorable init(RepositoryStorable storable) throws Exception {
+    public RagConfig initRepository(RepositoryStorable storable) throws Exception {
         //示例文本
         String text = "Solon 框架由杭州无耳科技有限公司（下属 Noear 团队）开发并开源。是新一代，Java 企业级应用开发框架。从零开始构建，有自主的标准规范与开放生态。近16万行代码。\n" +
                 "\n" +
@@ -47,6 +47,6 @@ public class RagConfig {
         //插入知识库
         storable.insert(documents);
 
-        return null;
+        return this;
     }
 }
