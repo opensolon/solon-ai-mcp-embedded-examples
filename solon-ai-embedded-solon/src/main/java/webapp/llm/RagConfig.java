@@ -7,8 +7,8 @@ import org.noear.solon.ai.rag.repository.InMemoryRepository;
 import org.noear.solon.ai.rag.splitter.RegexTextSplitter;
 import org.noear.solon.ai.rag.splitter.SplitterPipeline;
 import org.noear.solon.ai.rag.splitter.TokenSizeTextSplitter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.noear.solon.annotation.Bean;
+import org.noear.solon.annotation.Configuration;
 
 import java.util.List;
 

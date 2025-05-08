@@ -1,8 +1,8 @@
 package webapp.llm;
 
 import org.noear.solon.ai.chat.ChatModel;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.noear.solon.annotation.Bean;
+import org.noear.solon.annotation.Configuration;
 
 //配置聊天模型
 @Configuration

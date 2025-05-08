@@ -4,25 +4,25 @@ import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.rag.Document;
 import org.noear.solon.ai.rag.RepositoryStorable;
+import org.noear.solon.annotation.Controller;
+import org.noear.solon.annotation.Inject;
+import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Produces;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.noear.solon.core.util.MimeType;
 
 import java.util.List;
 
-@RequestMapping("rag")
-@RestController
+@Mapping("rag")
+@Controller
 public class RagController {
-    @Autowired
+    @Inject
     ChatModel chatModel;
 
-    @Autowired
+    @Inject
     RepositoryStorable repository;
 
-    @Produces(MediaType.TEXT_PLAIN_VALUE)
-    @RequestMapping("demo")
+    @Produces(MimeType.TEXT_PLAIN_VALUE)
+    @Mapping("demo")
     public String demo(String prompt) throws Exception {
         List<Document> documents = repository.search(prompt);
 
