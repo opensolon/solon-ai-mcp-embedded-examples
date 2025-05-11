@@ -13,8 +13,9 @@
     <description>Java project for solon-ai-mcp-embedded-examples</description>
 
     <modules>
-        <module>solon-ai-embedded-solon</module>
         <module>solon-ai-embedded-jfinal</module>
+        <module>solon-ai-embedded-jfinal-newstyle</module>
+        <module>solon-ai-embedded-solon</module>
         <module>solon-ai-embedded-springboot2</module>
         <module>solon-ai-embedded-springboot2-newstyle</module>
         <module>solon-ai-embedded-springboot3</module>
