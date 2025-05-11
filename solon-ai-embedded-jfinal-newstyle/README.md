@@ -2,8 +2,8 @@
 
 ### 提醒
 
-* Solon.start 默认会扫描 “源类” 包下面的所有类
-    * 即 `@McpServerEndpoint` 注解的类，放在 `mcpserver/tool/` 下面，会被自动扫描
+* Solon.start 默认会扫描 “源类” 包下面的所有类（这个示例用根类，作为扫描“源”）
+    * 放在 `webapp` 下面，会被自动扫描
     * 如果没有这种 “包括关系”，要使用 `@Import` 导入注解。具体从 solon 官网了解
 
 * 可以直接运行 `test/java/client/McpClientTest` 单测（会自动启动服务端）
