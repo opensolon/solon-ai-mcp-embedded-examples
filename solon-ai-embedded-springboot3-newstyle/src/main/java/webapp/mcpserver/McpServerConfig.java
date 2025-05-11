@@ -14,7 +14,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
-import webapp.tool.McpServerTool2;
+import webapp.mcpserver.tool.McpServerTool2;
 
 import java.util.List;
 
