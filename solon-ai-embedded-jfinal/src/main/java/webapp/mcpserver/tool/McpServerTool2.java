@@ -26,6 +26,11 @@ public class McpServerTool2 {
         return "v3.2.0";
     }
 
+    @ResourceMapping(uri = "db://users/{user_id}/email", description = "根据用户ID查询邮箱")
+    public String getEmail(@Param(description = "用户Id") String user_id) {
+        return user_id + "@example.com";
+    }
+
     @PromptMapping(description = "生成关于某个主题的提问")
     public Collection<ChatMessage> askQuestion(@Param(description = "主题") String topic) {
         return Arrays.asList(

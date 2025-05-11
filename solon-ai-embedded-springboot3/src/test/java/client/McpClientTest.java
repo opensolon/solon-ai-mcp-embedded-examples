@@ -37,6 +37,9 @@ public class McpClientTest {
         String resourceContent = toolProvider.readResourceAsText("config://app-version").getContent();
         System.out.println(resourceContent);
 
+        resourceContent = toolProvider.readResourceAsText("db://users/12/email").getContent();
+        System.out.println(resourceContent);
+
         System.out.println("---------------");
 
         /// /////////////////
@@ -58,6 +61,9 @@ public class McpClientTest {
 
         //资源
         resourceContent = toolProvider.readResourceAsText("config://app-version").getContent();
+        System.out.println(resourceContent);
+
+        resourceContent = toolProvider.readResourceAsText("db://users/12/email").getContent();
         System.out.println(resourceContent);
     }
 
