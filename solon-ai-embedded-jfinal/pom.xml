@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <solon.version>3.3.0</solon.version>
+        <solon.version>3.3.1-M1</solon.version>
     </properties>
 
     <dependencies>
@@ -30,29 +30,36 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-lib</artifactId>
-            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web-servlet</artifactId>
-            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-ai-mcp</artifactId>
-            <version>${solon.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-test</artifactId>
-            <version>${solon.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-parent</artifactId>
+                <version>${solon.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <finalName>${project.name}</finalName>
