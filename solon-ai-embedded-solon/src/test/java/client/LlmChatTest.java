@@ -10,7 +10,7 @@ import webapp.HelloApp;
 import java.util.concurrent.CountDownLatch;
 
 @SolonTest(HelloApp.class)
-public class LlmClientTest extends HttpTester {
+public class LlmChatTest extends HttpTester {
     @Test
     public void call_hello() throws Exception {
         String rst = path("/chat/call").data("prompt", "hello").post();

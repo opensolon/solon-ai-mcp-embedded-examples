@@ -10,10 +10,10 @@ import webapp.HelloApp;
 import java.util.concurrent.CountDownLatch;
 
 @SolonTest(HelloApp.class)
-public class LlmClientTest extends HttpTester {
+public class LlmChatTest extends HttpTester {
     @Test
     public void call_hello() throws Exception {
-        String rst = path("/chat/call/").data("prompt", "hello").post();
+        String rst = path("/chat/call").data("prompt", "hello").post();
         System.out.println(rst);
 
         assert rst != null && rst.length() > 0;
@@ -21,7 +21,7 @@ public class LlmClientTest extends HttpTester {
 
     @Test
     public void call_getWeather() throws Exception {
-        String rst = path("/chat/call/").data("prompt", "杭州今天天气怎么样？").post();
+        String rst = path("/chat/call").data("prompt", "杭州今天天气怎么样？").post();
         System.out.println(rst);
 
         assert rst != null && rst.length() > 0;
@@ -31,7 +31,7 @@ public class LlmClientTest extends HttpTester {
     public void stream_hello() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
 
-        path("/chat/stream/").data("prompt", "hello").
+        path("/chat/stream").data("prompt", "hello").
                 execAsSseStream("POST")
                 .subscribe(new SimpleSubscriber<ServerSentEvent>()
                         .doOnNext(sse -> {
@@ -51,7 +51,7 @@ public class LlmClientTest extends HttpTester {
     public void stream_getWeather() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
 
-        path("/chat/stream/").data("prompt", "杭州今天天气怎么样？")
+        path("/chat/stream").data("prompt", "杭州今天天气怎么样？")
                 .execAsSseStream("POST")
                 .subscribe(new SimpleSubscriber<ServerSentEvent>()
                         .doOnNext(sse -> {
