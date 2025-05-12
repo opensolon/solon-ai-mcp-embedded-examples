@@ -17,6 +17,7 @@ import webapp.mcpserver.tool.McpServerTool2;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 这个类独立一个目录，可以让 Solon 扫描范围最小化
@@ -28,13 +29,17 @@ public class McpServerConfig {
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
 
         //手动构建 mcp 服务端点（只是演示，可以去掉）
-        McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
+        McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
+                .name("McpServerTool2")
                 .sseEndpoint("/mcp/demo2/sse")
                 .build();
-        serverEndpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
-        serverEndpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
-        serverEndpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
-        serverEndpointProvider.postStart();
+        endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
+        endpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
+        endpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
+        endpointProvider.postStart();
+
+        //手动加入到 solon 容器（只是演示，可以去掉）
+        Solon.context().wrapAndPut(endpointProvider.getName(), endpointProvider);
     }
 
     @PreDestroy
@@ -74,6 +79,12 @@ public class McpServerConfig {
 
         //为了能让这个 init 能正常运行
         return this;
+    }
+
+    public static CompletableFuture<McpServerEndpointProvider> getEndpoint(String name){
+        CompletableFuture<McpServerEndpointProvider> future = new CompletableFuture<>();
+
+        return future;
     }
 
     @Bean
