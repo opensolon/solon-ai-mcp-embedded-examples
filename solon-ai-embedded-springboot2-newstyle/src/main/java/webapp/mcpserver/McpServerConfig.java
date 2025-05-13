@@ -1,7 +1,6 @@
 package webapp.mcpserver;
 
 import org.noear.solon.Solon;
-import org.noear.solon.Utils;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
@@ -12,12 +11,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
-import webapp.mcpserver.tool.McpServerTool2;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * 这个类独立一个目录，可以让 Solon 扫描范围最小化
@@ -27,19 +24,6 @@ public class McpServerConfig {
     @PostConstruct
     public void start() {
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
-
-        //手动构建 mcp 服务端点（只是演示，可以去掉）
-        McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
-                .name("McpServerTool2")
-                .sseEndpoint("/mcp/demo2/sse")
-                .build();
-        endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
-        endpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
-        endpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
-        endpointProvider.postStart();
-
-        //手动加入到 solon 容器（只是演示，可以去掉）
-        Solon.context().wrapAndPut(endpointProvider.getName(), endpointProvider);
     }
 
     @PreDestroy
@@ -69,22 +53,11 @@ public class McpServerConfig {
 
             serverEndpointProvider.postStart();
 
-            if (Utils.isNotEmpty(anno.name())) {
-                //手动转入 solon 容器
-                Solon.context().wrapAndPut(anno.name(), serverEndpointProvider);
-            }
-
             //可以再把 serverEndpointProvider 手动转入 SpringBoot 容器
         }
 
         //为了能让这个 init 能正常运行
         return this;
-    }
-
-    public static CompletableFuture<McpServerEndpointProvider> getEndpoint(String name){
-        CompletableFuture<McpServerEndpointProvider> future = new CompletableFuture<>();
-
-        return future;
     }
 
     @Bean
