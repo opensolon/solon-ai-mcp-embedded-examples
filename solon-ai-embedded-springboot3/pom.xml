@@ -97,7 +97,6 @@
         </plugins>
     </build>
 
-
     <repositories>
         <repository>
             <id>sonatype-snapshots</id>

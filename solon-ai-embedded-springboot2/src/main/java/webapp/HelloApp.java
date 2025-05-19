@@ -1,9 +1,18 @@
 package webapp;
 
+import org.noear.solon.Solon;
+import org.noear.solon.ai.chat.tool.FunctionToolDesc;
+import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
+import org.noear.solon.ai.mcp.server.prompt.FunctionPromptDesc;
+import org.noear.solon.ai.mcp.server.resource.FunctionResourceDesc;
+import org.noear.solon.rx.Completable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @RestController
 @SpringBootApplication
@@ -13,7 +22,7 @@ public class HelloApp {
     }
 
     @RequestMapping("/")
-    public String hello(String name){
+    public String hello(String name) {
 //        //动态获取（添加工具等）//只是示例，可以删掉
 //        McpServerEndpointProvider serverEndpointProvider = Solon.context().getBean("demo1");
 //
@@ -25,7 +34,7 @@ public class HelloApp {
     }
 
     @RequestMapping("/hello2")
-    public String hello2(String name) throws Exception{
+    public String hello2(String name) throws Exception {
         Thread.sleep(10);
         return "hello world: " + name;
     }
