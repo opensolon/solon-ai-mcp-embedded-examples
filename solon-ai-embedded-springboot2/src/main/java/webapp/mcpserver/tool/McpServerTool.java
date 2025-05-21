@@ -6,7 +6,8 @@ import org.noear.solon.ai.annotation.ToolMapping;
 import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.annotation.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import webapp.mcpserver.IMcpServerEndpoint;
 
 import java.util.Arrays;
@@ -15,9 +16,12 @@ import java.util.Collection;
 /**
  * 自动构建服务端点服务（使用 springboot 容器）
  * */
-@Component //注意这个注解别用错了（solon 里也有同名的）
+@Service
 @McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool implements IMcpServerEndpoint {
+    @Autowired //示例注入 spring bean
+    DemoService demoService;
+
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）
     //
