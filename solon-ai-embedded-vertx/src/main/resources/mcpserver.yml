@@ -1,2 +1,3 @@
 # 独立端口时可自己定义
 server.port: 8080
+server.contextPath: "/"
