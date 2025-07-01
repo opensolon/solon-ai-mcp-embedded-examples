@@ -5,6 +5,7 @@ import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.chat.ChatResponse;
 import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.mcp.client.McpClientProvider;
+import org.noear.solon.net.http.HttpException;
 import org.noear.solon.test.SolonTest;
 import webapp.HelloApp;
 
@@ -91,5 +92,27 @@ public class McpClientTest {
                 .call();
 
         System.out.println(resp.getMessage());
+    }
+
+    /**
+     * 鉴权
+     */
+    @Test
+    public void case3_auth() throws Exception {
+        McpClientProvider mcpClient = McpClientProvider.builder()
+                .apiUrl("http://localhost:8080/mcp/demo1/sse?user=no")
+                .build();
+
+        Throwable error = null;
+        try {
+            mcpClient.getTools();
+        } catch (Throwable e) {
+            error = e;
+            e.printStackTrace();
+        }
+
+        assert error != null;
+        assert error instanceof HttpException;
+        assert error.getMessage().contains("401");
     }
 }
