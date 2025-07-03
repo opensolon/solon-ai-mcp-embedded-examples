@@ -10,6 +10,7 @@ import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.web.servlet.SolonServletFilter;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,13 @@ import java.util.List;
  * */
 @Configuration
 public class McpServerConfig {
+    @Value("${server.servlet.context-path:}")
+    private String contextPath;
+
     @PostConstruct
     public void start() {
+        System.setProperty("server.contextPath", contextPath);
+
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
 
         //手动构建 mcp 服务端点（只是演示，可以去掉）
