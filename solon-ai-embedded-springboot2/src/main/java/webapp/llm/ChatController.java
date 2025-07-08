@@ -2,10 +2,14 @@ package webapp.llm;
 
 import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.annotation.Produces;
+import org.noear.solon.core.util.RunUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 
 //聊天模型演示
@@ -25,8 +29,22 @@ public class ChatController {
 
     @Produces(MediaType.TEXT_EVENT_STREAM_VALUE)
     @RequestMapping("stream")
-    public Flux<String> stream(String prompt) throws Exception {
-        return Flux.from(chatModel.prompt(prompt).stream())
-                .map(resp -> resp.getMessage().getContent());
+    public SseEmitter stream(String prompt) throws Exception {
+        SseEmitter emitter = new SseEmitter(0L);
+
+        Flux.from(chatModel.prompt(prompt).stream())
+                .filter(resp -> resp.hasChoices())
+                .doOnNext(resp -> {
+                    RunUtil.runOrThrow(() -> emitter.send(resp.getMessage().getContent()));
+                })
+                .doOnError(err -> {
+                    emitter.completeWithError(err);
+                })
+                .doOnComplete(() -> {
+                    emitter.complete();
+                })
+                .subscribe();
+
+        return emitter;
     }
 }
