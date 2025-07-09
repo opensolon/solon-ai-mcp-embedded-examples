@@ -6,12 +6,15 @@ import org.noear.solon.ai.chat.ChatResponse;
 import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.mcp.client.McpClientProvider;
 import org.noear.solon.net.http.HttpException;
+import org.noear.solon.rx.SimpleSubscriber;
 import org.noear.solon.test.SolonTest;
 import webapp.HelloApp;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 
 @SolonTest(HelloApp.class)
 public class McpClientTest {
@@ -77,7 +80,7 @@ public class McpClientTest {
      * 与大模型集成
      */
     @Test
-    public void case2() throws Exception {
+    public void case2_call() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
@@ -92,6 +95,40 @@ public class McpClientTest {
                 .call();
 
         System.out.println(resp.getMessage());
+    }
+
+    /**
+     * 与大模型集成
+     */
+    @Test
+    public void case2_stream() throws Exception {
+        McpClientProvider toolProvider = McpClientProvider.builder()
+                .apiUrl("http://localhost:8080/mcp/demo1/sse")
+                .build();
+
+        ChatModel chatModel = ChatModel.of(apiUrl)
+                .provider(provider)
+                .model(model)
+                .defaultToolsAdd(toolProvider) //添加默认工具
+                .build();
+
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Throwable> errRef = new AtomicReference<>();
+
+        chatModel.prompt("杭州今天的天气怎么样？")
+                .stream()
+                .subscribe(new SimpleSubscriber<ChatResponse>()
+                        .doOnNext(resp -> {
+                            System.out.println(resp.getMessage().getContent());
+                        }).doOnError(err -> {
+                            errRef.set(err);
+                            latch.countDown();
+                        }).doOnComplete(() -> {
+                            latch.countDown();
+                        }));
+
+        latch.await();
+        assert errRef.get() == null;
     }
 
     /**
