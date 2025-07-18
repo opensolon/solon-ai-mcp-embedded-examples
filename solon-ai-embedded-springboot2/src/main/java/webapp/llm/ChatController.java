@@ -33,7 +33,7 @@ public class ChatController {
         SseEmitter emitter = new SseEmitter(0L);
 
         Flux.from(chatModel.prompt(prompt).stream())
-                .filter(resp -> resp.hasChoices())
+                .filter(resp -> resp.hasChoices() && resp.getMessage().getContent() != null)
                 .doOnNext(resp -> {
                     RunUtil.runOrThrow(() -> emitter.send(resp.getMessage().getContent()));
                 })
