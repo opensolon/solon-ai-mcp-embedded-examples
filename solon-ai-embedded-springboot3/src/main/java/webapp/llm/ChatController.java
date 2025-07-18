@@ -31,9 +31,9 @@ public class ChatController {
         SseEmitter emitter = new SseEmitter(0L);
 
         Flux.from(chatModel.prompt(prompt).stream())
-                .filter(resp -> resp.hasChoices() && resp.getMessage().getContent() != null)
+                .filter(resp -> resp.hasContent())
                 .doOnNext(resp -> {
-                    RunUtil.runOrThrow(() -> emitter.send(resp.getMessage().getContent()));
+                    RunUtil.runOrThrow(() -> emitter.send(resp.getContent()));
                 })
                 .doOnError(err -> {
                     emitter.completeWithError(err);

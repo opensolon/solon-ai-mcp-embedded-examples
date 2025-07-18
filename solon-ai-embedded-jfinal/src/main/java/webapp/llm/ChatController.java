@@ -27,8 +27,8 @@ public class ChatController extends Controller {
                 .subscribe(new SimpleSubscriber<ChatResponse>()
                         .doOnNext(resp -> {
                             try {
-                                if(resp.hasChoices() && resp.getMessage().getContent() != null) {
-                                    getResponse().getWriter().write("data:" + resp.getMessage().getContent());
+                                if(resp.hasContent()) {
+                                    getResponse().getWriter().write("data:" + resp.getContent());
                                     getResponse().getWriter().write("\n");
                                     getResponse().getWriter().flush();
                                 }

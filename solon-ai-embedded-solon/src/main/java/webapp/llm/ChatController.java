@@ -27,7 +27,7 @@ public class ChatController {
     @Mapping("stream")
     public Flux<String> stream(String prompt) throws Exception {
         return Flux.from(chatModel.prompt(prompt).stream())
-                .filter(resp -> resp.hasChoices() && resp.getMessage().getContent() != null)
-                .map(resp -> resp.getMessage().getContent());
+                .filter(resp -> resp.hasContent())
+                .map(resp -> resp.getContent());
     }
 }
