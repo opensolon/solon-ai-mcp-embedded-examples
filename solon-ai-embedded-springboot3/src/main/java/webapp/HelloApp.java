@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class HelloApp {
     public static void main(String[] args) {
+        if(Solon.app() != null) {
+            return;
+        }
+
         SpringApplication.run(HelloApp.class, args);
     }
 
