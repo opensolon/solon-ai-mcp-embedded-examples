@@ -1,1 +1,6 @@
 #server.servlet.context-path: "/demo"
+
+
+logging:
+  level:
+    root: debug
