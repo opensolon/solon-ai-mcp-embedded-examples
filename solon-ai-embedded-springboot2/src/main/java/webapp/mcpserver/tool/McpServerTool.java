@@ -4,6 +4,7 @@ import org.noear.solon.ai.annotation.PromptMapping;
 import org.noear.solon.ai.annotation.ResourceMapping;
 import org.noear.solon.ai.annotation.ToolMapping;
 import org.noear.solon.ai.chat.message.ChatMessage;
+import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.Collection;
  * 自动构建服务端点服务（使用 springboot 容器）
  * */
 @Service
-@McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool implements IMcpServerEndpoint {
     @Autowired //示例注入 spring bean
     DemoService demoService;
