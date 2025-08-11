@@ -12,7 +12,7 @@
     * embeddingModel
     * repository
     * splitter
-* mcp 
+* mcp （含 sse, streamable 示例；支持 MCP_2025_03_26 协议）
   * server 基本使用（需要 solon 容器支持）
   * client 基本使用，及单测
 

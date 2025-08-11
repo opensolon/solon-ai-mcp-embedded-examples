@@ -4,6 +4,7 @@ import org.noear.solon.ai.annotation.PromptMapping;
 import org.noear.solon.ai.annotation.ResourceMapping;
 import org.noear.solon.ai.annotation.ToolMapping;
 import org.noear.solon.ai.chat.message.ChatMessage;
+import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,6 +3,7 @@ package webapp;
 import com.jfinal.config.*;
 import com.jfinal.server.undertow.UndertowServer;
 import com.jfinal.template.Engine;
+import org.noear.solon.Solon;
 import webapp.llm.ChatController;
 import webapp.llm.RagController;
 import webapp.mcpserver.McpServerConfig;
@@ -17,6 +18,10 @@ public class HelloApp extends JFinalConfig {
      * 启动入口类放置用于启动的 main 方法
      */
     public static void main(String[] args) {
+        if(Solon.app() != null) {
+            return;
+        }
+
         UndertowServer.create(HelloApp.class)
                 .setDevMode(false)
                 .setPort(8080)

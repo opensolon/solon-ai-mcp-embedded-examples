@@ -3,10 +3,15 @@ package webapp;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
+import org.noear.solon.Solon;
 import webapp.mcpserver.McpServerConfig;
 
 public class HelloApp extends AbstractVerticle {
     public static void main(String[] args) throws Exception {
+        if(Solon.app() != null) {
+            return;
+        }
+
         Vertx vertx = Vertx.vertx();
         Router router = Router.router(vertx);
 
