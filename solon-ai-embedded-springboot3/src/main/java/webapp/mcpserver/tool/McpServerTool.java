@@ -17,7 +17,7 @@ import java.util.Collection;
  * 自动构建服务端点服务（使用 springboot 容器）
  * */
 @Service
-@McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool implements IMcpServerEndpoint {
     @Autowired //示例注入 spring bean
     DemoService demoService;

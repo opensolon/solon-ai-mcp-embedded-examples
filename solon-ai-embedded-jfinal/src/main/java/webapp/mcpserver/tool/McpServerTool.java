@@ -4,6 +4,7 @@ import org.noear.solon.ai.annotation.PromptMapping;
 import org.noear.solon.ai.annotation.ResourceMapping;
 import org.noear.solon.ai.annotation.ToolMapping;
 import org.noear.solon.ai.chat.message.ChatMessage;
+import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.annotation.Param;
 
@@ -13,7 +14,7 @@ import java.util.Collection;
 /**
  * 自动构建服务端点服务
  * */
-@McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）

@@ -14,7 +14,7 @@ import java.util.Collection;
 /**
  * 自动构建服务端点服务
  * */
-@McpServerEndpoint(name="demo1", sseEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", sseEndpoint = "/mcp/demo1/sse")
 public class McpServerTool {
     @Inject
     DemoService demoService;

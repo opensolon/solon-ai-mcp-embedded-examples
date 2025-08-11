@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.chat.ChatResponse;
 import org.noear.solon.ai.chat.message.ChatMessage;
+import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.client.McpClientProvider;
 import org.noear.solon.net.http.HttpException;
 import org.noear.solon.rx.SimpleSubscriber;
@@ -25,6 +26,7 @@ public class McpClientTest {
     @Test
     public void case1() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
+                .channel(McpChannel.STREAMABLE)
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
@@ -51,6 +53,7 @@ public class McpClientTest {
 
 
         toolProvider = McpClientProvider.builder()
+                .channel(McpChannel.SSE)
                 .apiUrl("http://localhost:8080/mcp/demo2/sse")
                 .build();
 

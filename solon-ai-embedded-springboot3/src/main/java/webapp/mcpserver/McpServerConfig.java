@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.noear.solon.Solon;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
+import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
@@ -36,6 +37,7 @@ public class McpServerConfig {
         //手动构建 mcp 服务端点（只是演示，可以去掉）
         McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
                 .name("McpServerTool2")
+                .channel(McpChannel.SSE)
                 .sseEndpoint("/mcp/demo2/sse")
                 .build();
         endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
