@@ -27,6 +27,7 @@ public class ChatController {
     @Mapping("stream")
     public Flux<String> stream(String prompt) throws Exception {
         return Flux.from(chatModel.prompt(prompt).stream())
+                //.subscribeOn(Schedulers.boundedElastic()) //加这个打印效果更好
                 .filter(resp -> resp.hasContent())
                 .map(resp -> resp.getContent());
     }
