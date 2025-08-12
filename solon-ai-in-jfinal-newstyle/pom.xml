@@ -4,8 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>org.noear</groupId>
-    <artifactId>solon-ai-embedded-springboot3</artifactId>
+    <artifactId>solon-ai-in-jfinal-newstyle</artifactId>
     <version>demo</version>
     <packaging>jar</packaging>
 
@@ -15,9 +16,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.4.4</version>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal-undertow</artifactId>
+            <version>3.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal</artifactId>
+            <version>5.2.4</version>
         </dependency>
 
         <dependency>
@@ -27,7 +34,7 @@
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-web-servlet-jakarta</artifactId>
+            <artifactId>solon-web-servlet</artifactId>
         </dependency>
 
         <dependency>
@@ -101,6 +108,7 @@
             </plugin>
         </plugins>
     </build>
+
 
     <repositories>
         <repository>

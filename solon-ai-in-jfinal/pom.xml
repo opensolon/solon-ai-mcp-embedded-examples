@@ -6,7 +6,7 @@
 
 
     <groupId>org.noear</groupId>
-    <artifactId>solon-ai-embedded-solon</artifactId>
+    <artifactId>solon-ai-in-jfinal</artifactId>
     <version>demo</version>
     <packaging>jar</packaging>
 
@@ -16,8 +16,25 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal-undertow</artifactId>
+            <version>3.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal</artifactId>
+            <version>5.2.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-web</artifactId>
+            <artifactId>solon-lib</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-web-servlet</artifactId>
         </dependency>
 
         <dependency>
@@ -28,11 +45,6 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-ai-mcp</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-logging-simple</artifactId>
         </dependency>
 
         <dependency>

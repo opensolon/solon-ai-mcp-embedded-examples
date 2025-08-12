@@ -13,14 +13,14 @@
     <description>Java project for solon-ai-mcp-embedded-examples</description>
 
     <modules>
-        <module>solon-ai-embedded-jfinal</module>
-        <module>solon-ai-embedded-jfinal-newstyle</module>
-        <module>solon-ai-embedded-solon</module>
-        <module>solon-ai-embedded-springboot2</module>
-        <module>solon-ai-embedded-springboot3</module>
-        <module>solon-ai-embedded-vertx</module>
-        <module>solon-ai-embedded-webflux2-llm</module>
-        <module>solon-ai-embedded-webflux3-llm</module>
+        <module>solon-ai-in-jfinal</module>
+        <module>solon-ai-in-jfinal-newstyle</module>
+        <module>solon-ai-in-solon</module>
+        <module>solon-ai-in-springboot2</module>
+        <module>solon-ai-in-springboot3</module>
+        <module>solon-ai-in-vertx</module>
+        <module>solon-ai-in-webflux2-llm</module>
+        <module>solon-ai-in-webflux3-llm</module>
     </modules>
 
     <build>

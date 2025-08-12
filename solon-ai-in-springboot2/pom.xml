@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.noear</groupId>
-    <artifactId>solon-ai-embedded-webflux2-llm</artifactId>
+    <artifactId>solon-ai-in-springboot2</artifactId>
     <version>demo</version>
     <packaging>jar</packaging>
 
@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <version>2.7.18</version>
         </dependency>
 
@@ -27,7 +27,23 @@
 
         <dependency>
             <groupId>org.noear</groupId>
+            <artifactId>solon-web-servlet</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
             <artifactId>solon-ai</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-ai-mcp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
         </dependency>
 
         <dependency>
@@ -92,6 +108,7 @@
         </plugins>
     </build>
 
+
     <repositories>
         <repository>
             <id>sonatype-snapshots</id>
@@ -112,5 +129,4 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-
 </project>

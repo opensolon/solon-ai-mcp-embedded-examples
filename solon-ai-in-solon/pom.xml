@@ -4,8 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>org.noear</groupId>
-    <artifactId>solon-ai-embedded-springboot2</artifactId>
+    <artifactId>solon-ai-in-solon</artifactId>
     <version>demo</version>
     <packaging>jar</packaging>
 
@@ -15,19 +16,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.7.18</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon-lib</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-web-servlet</artifactId>
+            <artifactId>solon-web</artifactId>
         </dependency>
 
         <dependency>
@@ -41,9 +31,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-logging-simple</artifactId>
         </dependency>
 
         <dependency>
@@ -129,4 +118,5 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
+
 </project>
