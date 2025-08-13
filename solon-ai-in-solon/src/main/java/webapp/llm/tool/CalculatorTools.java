@@ -1,9 +1,18 @@
 package webapp.llm.tool;
 
 import org.noear.solon.ai.annotation.ToolMapping;
+import org.noear.solon.annotation.Component;
+import org.noear.solon.annotation.Inject;
 import org.noear.solon.annotation.Param;
 
+/**
+ * 如果有注入字段？请使用组件注解
+ * */
+@Component
 public class CalculatorTools {
+    @Inject
+    CalculatorService calculatorService; //示意一下
+
     @ToolMapping(description = "将两个数字相加")
     public int add(@Param int a, @Param int b) {
         return a + b;
