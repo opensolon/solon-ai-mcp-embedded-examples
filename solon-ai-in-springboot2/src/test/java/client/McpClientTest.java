@@ -85,6 +85,7 @@ public class McpClientTest {
     @Test
     public void case2_call() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
+                .channel(McpChannel.STREAMABLE)
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
@@ -106,6 +107,7 @@ public class McpClientTest {
     @Test
     public void case2_stream() throws Exception {
         McpClientProvider toolProvider = McpClientProvider.builder()
+                .channel(McpChannel.STREAMABLE)
                 .apiUrl("http://localhost:8080/mcp/demo1/sse")
                 .build();
 
@@ -140,6 +142,7 @@ public class McpClientTest {
     @Test
     public void case3_auth() throws Exception {
         McpClientProvider mcpClient = McpClientProvider.builder()
+                .channel(McpChannel.STREAMABLE)
                 .apiUrl("http://localhost:8080/mcp/demo1/sse?user=no")
                 .build();
 
