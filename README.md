@@ -1,5 +1,6 @@
 # solon-ai-mcp-embedded-examples
 
+solon-ai & solon-ai-mcp & solon-ai-flow 同时支持：java8、java11、java17、java21、java24（java8+）
 
 ### 说明
 
