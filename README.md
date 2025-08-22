@@ -2,6 +2,8 @@
 
 solon-ai & solon-ai-mcp & solon-ai-flow 同时支持：java8、java11、java17、java21、java24（java8+）
 
+本示例项目会经常更新，建议经常同步。
+
 ### 说明
 
 示例内容包括：
@@ -9,10 +11,7 @@ solon-ai & solon-ai-mcp & solon-ai-flow 同时支持：java8、java11、java17�
 * llm
   * chatModel 基本使用，及单测
   * tool call 基本使用，及单测
-  * rag 基本使用，及单测
-    * embeddingModel
-    * repository
-    * splitter
+  * rag 基本使用，及单测（embeddingModel，repository，splitter）
 * mcp （含 sse, streamable 示例；支持 MCP_2025_03_26 协议）
   * server 基本使用（需要 solon 容器支持）
   * client 基本使用，及单测
