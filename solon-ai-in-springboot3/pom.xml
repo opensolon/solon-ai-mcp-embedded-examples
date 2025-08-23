@@ -10,14 +10,14 @@
     <packaging>jar</packaging>
 
     <properties>
-        <solon.version>3.5.1-M2</solon.version>
+        <solon.version>3.5.1-M3</solon.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.4.4</version>
+            <version>3.5.4</version>
         </dependency>
 
         <dependency>
