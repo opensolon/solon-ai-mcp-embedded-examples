@@ -20,6 +20,7 @@ public class HelloApp {
                     .name("McpServerTool2")
                     .channel(McpChannel.SSE)
                     .sseEndpoint("/mcp/demo2/sse")
+                    .contextPath(app.cfg().serverContextPath())
                     .build();
             endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
             endpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));

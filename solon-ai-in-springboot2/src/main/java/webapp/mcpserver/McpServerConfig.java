@@ -39,6 +39,7 @@ public class McpServerConfig {
                 .name("McpServerTool2")
                 .channel(McpChannel.SSE)
                 .sseEndpoint("/mcp/demo2/sse")
+                .contextPath(contextPath)
                 .build();
         endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
         endpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
