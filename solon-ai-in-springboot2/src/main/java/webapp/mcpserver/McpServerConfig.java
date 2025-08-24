@@ -34,6 +34,7 @@ public class McpServerConfig {
 
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app->{
             //添加全局鉴权过滤器示例（如果不需要，可以删掉）
+            app.enableScanning(false); //不扫描
             app.filter(new McpServerAuth());
         });
 
@@ -46,7 +47,7 @@ public class McpServerConfig {
         endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
         endpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
         endpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
-        //endpointProvider.postStart();
+        endpointProvider.postStart();
 
         //手动加入到 solon 容器（只是演示，可以去掉）
         Solon.context().wrapAndPut(endpointProvider.getName(), endpointProvider);
