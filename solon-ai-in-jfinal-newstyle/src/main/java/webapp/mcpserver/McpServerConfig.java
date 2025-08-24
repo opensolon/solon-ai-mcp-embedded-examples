@@ -28,6 +28,10 @@ public class McpServerConfig extends Handler implements IPlugin {
             app.filter(new McpServerAuth());
         });
 
+        /**
+         * 手动构建端点示例（仅供参考）
+         * */
+
         //手动构建 mcp 服务端点（只是演示，可以去掉）
         McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
                 .name("McpServerTool2")
