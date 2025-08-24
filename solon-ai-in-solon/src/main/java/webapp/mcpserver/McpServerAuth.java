@@ -7,6 +7,8 @@ import org.noear.solon.core.handle.FilterChain;
 
 /**
  * 仅为示例
+ *
+ * 鉴权设计参考：https://solon.noear.org/article/1004
  */
 @Component
 public class McpServerAuth implements Filter {

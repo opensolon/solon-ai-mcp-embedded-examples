@@ -1,12 +1,13 @@
 package webapp.mcpserver;
 
-import org.noear.solon.annotation.Managed;
 import org.noear.solon.core.handle.Context;
 import org.noear.solon.core.handle.Filter;
 import org.noear.solon.core.handle.FilterChain;
 
 /**
  * 仅为示例
+ *
+ * 鉴权设计参考：https://solon.noear.org/article/1004
  */
 public class McpServerAuth implements Filter {
     @Override
