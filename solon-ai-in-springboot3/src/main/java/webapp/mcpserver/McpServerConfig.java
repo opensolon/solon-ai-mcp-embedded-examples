@@ -46,7 +46,7 @@ public class McpServerConfig {
         endpointProvider.addTool(new MethodToolProvider(new McpServerTool2()));
         endpointProvider.addResource(new MethodResourceProvider(new McpServerTool2()));
         endpointProvider.addPrompt(new MethodPromptProvider(new McpServerTool2()));
-        endpointProvider.postStart();
+        //endpointProvider.postStart();
 
         //手动加入到 solon 容器（只是演示，可以去掉）
         Solon.context().wrapAndPut(endpointProvider.getName(), endpointProvider);
