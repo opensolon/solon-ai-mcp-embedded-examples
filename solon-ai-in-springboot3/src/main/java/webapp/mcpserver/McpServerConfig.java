@@ -11,6 +11,7 @@ import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.web.servlet.SolonServletFilter;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -28,15 +29,22 @@ public class McpServerConfig {
     @Value("${server.servlet.context-path:}")
     private String contextPath;
 
+    @Autowired
+    private List<IMcpServerEndpoint> serverEndpoints;
+
     @PostConstruct
     public void start() {
         System.setProperty("server.contextPath", contextPath);
 
-        Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app->{
+        Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app -> {
             //添加全局鉴权过滤器示例（如果不需要，可以删掉）
             app.enableScanning(false); //不扫描
             app.filter(new McpServerAuth());
         });
+
+        /**
+         * 手动构建端点示例（仅供参考）
+         * */
 
         //手动构建 mcp 服务端点（只是演示，可以去掉）
         McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
@@ -51,6 +59,12 @@ public class McpServerConfig {
 
         //手动加入到 solon 容器（只是演示，可以去掉）
         Solon.context().wrapAndPut(endpointProvider.getName(), endpointProvider);
+
+        /**
+         * Spring 组件转为端点
+         * */
+
+        springCom2Endpoint();
     }
 
     @PreDestroy
@@ -61,8 +75,8 @@ public class McpServerConfig {
         }
     }
 
-    @Bean
-    public McpServerConfig init(List<IMcpServerEndpoint> serverEndpoints) {
+    //Spring 组件转为端点
+    protected void springCom2Endpoint() {
         //提取实现容器里 IMcpServerEndpoint 接口的 bean ，并注册为服务端点
         for (IMcpServerEndpoint serverEndpoint : serverEndpoints) {
             Class<?> serverEndpointClz = AopUtils.getTargetClass(serverEndpoint);
@@ -84,9 +98,6 @@ public class McpServerConfig {
 
             //可以再把 serverEndpointProvider 手动转入 SpringBoot 容器
         }
-
-        //为了能让这个 init 能正常运行
-        return this;
     }
 
     @Bean
