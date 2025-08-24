@@ -23,7 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 public class McpServerConfig extends Handler implements IPlugin {
     public boolean start() {
         // todo: 此处将 source 设为 (HelloApp.class)；从根据扫描，可以使用所有的 solon 能力
-        Solon.start(HelloApp.class, new String[]{"--cfg=mcpserver.yml"});
+        Solon.start(HelloApp.class, new String[]{"--cfg=mcpserver.yml"}, app->{
+            //添加全局鉴权过滤器示例（如果不需要，可以删掉）
+            app.filter(new McpServerAuth());
+        });
 
         //手动构建 mcp 服务端点（只是演示，可以去掉）
         McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()

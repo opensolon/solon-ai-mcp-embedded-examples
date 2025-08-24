@@ -29,7 +29,10 @@ public class McpServerConfig extends AbstractVerticle {
             handler.handle(req.request());
         });
 
-        Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"});
+        Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app->{
+            //添加全局鉴权过滤器示例（如果不需要，可以删掉）
+            app.filter(new McpServerAuth());
+        });
 
         //手动构建 mcp 服务端点（只是演示，可以去掉）
         McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
