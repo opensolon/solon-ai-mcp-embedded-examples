@@ -5,17 +5,17 @@ import org.noear.solon.ai.annotation.ResourceMapping;
 import org.noear.solon.ai.annotation.ToolMapping;
 import org.noear.solon.ai.chat.message.ChatMessage;
 import org.noear.solon.ai.mcp.McpChannel;
+import org.noear.solon.ai.mcp.server.IMcpServerEndpoint;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import webapp.mcpserver.IMcpServerEndpoint;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * 自动构建服务端点服务（使用 springboot 容器）
+ * 自动构建服务端点服务（使用 springboot 容器） //通过 IMcpServerEndpoint 接口，方便自动收集 McpServerEndpoint 组件类
  * */
 @Service
 @McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", mcpEndpoint = "/mcp/demo1/sse")
