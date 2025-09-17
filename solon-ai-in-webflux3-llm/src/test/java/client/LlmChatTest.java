@@ -1,12 +1,12 @@
 package client;
 
 import org.junit.jupiter.api.Test;
-import org.noear.solon.net.http.textstream.ServerSentEvent;
-import org.noear.solon.rx.SimpleSubscriber;
 import org.noear.solon.test.HttpTester;
 import org.noear.solon.test.SolonTest;
+import reactor.core.publisher.Flux;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 运行单测前，先手动运行 HelloApp
@@ -32,40 +32,48 @@ public class LlmChatTest extends HttpTester {
     @Test
     public void stream_hello() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
+        AtomicInteger counter = new AtomicInteger();
 
-        path("/chat/stream").data("prompt", "hello").
-                execAsSseStream("POST")
-                .subscribe(new SimpleSubscriber<ServerSentEvent>()
-                        .doOnNext(sse -> {
-                            System.out.println(sse);
-                        }).doOnComplete(() -> {
-                            latch.countDown();
-                        })
-                        .doOnError(err -> {
-                            err.printStackTrace();
-                            latch.countDown();
-                        }));
+        Flux.from(path("/chat/stream").data("prompt", "hello").
+                        execAsSseStream("POST"))
+                .doOnNext(sse -> {
+                    System.out.println(sse);
+                    counter.incrementAndGet();
+                }).doOnComplete(() -> {
+                    latch.countDown();
+                })
+                .doOnError(err -> {
+                    err.printStackTrace();
+                    latch.countDown();
+                })
+                .subscribe();
 
         latch.await();
+
+        assert counter.get() > 0;
     }
 
     @Test
     public void stream_getWeather() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
+        AtomicInteger counter = new AtomicInteger();
 
-        path("/chat/stream").data("prompt", "杭州今天天气怎么样？")
-                .execAsSseStream("POST")
-                .subscribe(new SimpleSubscriber<ServerSentEvent>()
-                        .doOnNext(sse -> {
-                            System.out.println(sse);
-                        }).doOnComplete(() -> {
-                            latch.countDown();
-                        })
-                        .doOnError(err -> {
-                            err.printStackTrace();
-                            latch.countDown();
-                        }));
+        Flux.from(path("/chat/stream").data("prompt", "杭州今天天气怎么样？")
+                        .execAsSseStream("POST"))
+                .doOnNext(sse -> {
+                    System.out.println(sse);
+                    counter.incrementAndGet();
+                }).doOnComplete(() -> {
+                    latch.countDown();
+                })
+                .doOnError(err -> {
+                    err.printStackTrace();
+                    latch.countDown();
+                })
+                .subscribe();
 
         latch.await();
+
+        assert counter.get() > 0;
     }
 }
