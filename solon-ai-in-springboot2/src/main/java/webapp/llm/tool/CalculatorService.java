@@ -1,11 +1,10 @@
 package webapp.llm.tool;
 
-
-import org.noear.solon.annotation.Managed;
+import org.springframework.stereotype.Component;
 
 /**
  * 示意一下
  * */
-@Managed
+@Component
 public class CalculatorService {
 }
