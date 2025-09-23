@@ -28,6 +28,7 @@ public class ChatController {
     public Flux<String> stream(String prompt) throws Exception {
         return Flux.from(chatModel.prompt(prompt).stream())
                 .filter(resp -> resp.hasContent())
-                .map(resp -> resp.getContent());
+                .map(resp -> resp.getContent())
+                .concatWithValues("[DONE]"); //有些前端框架，需要 [DONE] 实识用作识别
     }
 }

@@ -34,8 +34,10 @@ public class ChatController {
 
         Flux.from(chatModel.prompt(prompt).stream())
                 .filter(resp -> resp.hasContent())
-                .doOnNext(resp -> {
-                    RunUtil.runOrThrow(() -> emitter.send(resp.getContent()));
+                .map(resp -> resp.getContent())
+                .concatWithValues("[DONE]") //有些前端框架，需要 [DONE] 实识用作识别
+                .doOnNext(msg -> {
+                    RunUtil.runOrThrow(() -> emitter.send(msg));
                 })
                 .doOnError(err -> {
                     emitter.completeWithError(err);

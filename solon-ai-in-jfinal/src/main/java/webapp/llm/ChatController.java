@@ -27,8 +27,14 @@ public class ChatController extends Controller {
                 .subscribe(new SimpleSubscriber<ChatResponse>()
                         .doOnNext(resp -> {
                             try {
-                                if(resp.hasContent()) {
+                                if (resp.hasContent()) {
                                     getResponse().getWriter().write("data:" + resp.getContent());
+                                    getResponse().getWriter().write("\n");
+                                    getResponse().getWriter().flush();
+                                }
+
+                                if (resp.isFinished()) {
+                                    getResponse().getWriter().write("data:[DONE]"); //有些前端框架，需要 [DONE] 实识用作识别
                                     getResponse().getWriter().write("\n");
                                     getResponse().getWriter().flush();
                                 }
