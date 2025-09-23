@@ -1,3 +1,1 @@
-# 如果使用 servelt 则使用与 jfinal 相同的等口
-server.port: 8080
 server.contextPath: "/"
