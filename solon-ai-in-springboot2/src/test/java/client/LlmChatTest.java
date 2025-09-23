@@ -74,6 +74,6 @@ public class LlmChatTest extends HttpTester {
 
         latch.await();
 
-        assert counter.get() > 0;
+        assert counter.get() > 1;
     }
 }
