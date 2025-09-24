@@ -7,6 +7,7 @@ import org.noear.solon.annotation.Mapping;
 import org.noear.solon.annotation.Produces;
 import org.noear.solon.core.util.MimeType;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 //聊天模型演示
 @Mapping("chat")
@@ -27,6 +28,7 @@ public class ChatController {
     @Mapping("stream")
     public Flux<String> stream(String prompt) throws Exception {
         return Flux.from(chatModel.prompt(prompt).stream())
+                .subscribeOn(Schedulers.boundedElastic()) //加这个打印效果更好
                 .filter(resp -> resp.hasContent())
                 .map(resp -> resp.getContent())
                 .concatWithValues("[DONE]"); //有些前端框架，需要 [DONE] 实识用作识别

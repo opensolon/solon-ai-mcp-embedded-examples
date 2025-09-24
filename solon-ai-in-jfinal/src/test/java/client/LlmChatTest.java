@@ -32,13 +32,13 @@ public class LlmChatTest extends HttpTester {
     @Test
     public void stream_hello() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
-        AtomicInteger counter = new AtomicInteger();
+        StringBuilder message = new StringBuilder();
 
         Flux.from(path("/chat/stream").data("prompt", "hello").
                         execAsSseStream("POST"))
                 .doOnNext(sse -> {
                     System.out.println(sse);
-                    counter.incrementAndGet();
+                    message.append(sse.getData());
                 }).doOnComplete(() -> {
                     latch.countDown();
                 })
@@ -50,19 +50,20 @@ public class LlmChatTest extends HttpTester {
 
         latch.await();
 
-        assert counter.get() > 0;
+        assert message.length() > 0;
+        assert message.toString().endsWith("[DONE]");
     }
 
     @Test
     public void stream_getWeather() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
-        AtomicInteger counter = new AtomicInteger();
+        StringBuilder message = new StringBuilder();
 
         Flux.from(path("/chat/stream").data("prompt", "杭州今天天气怎么样？")
                         .execAsSseStream("POST"))
                 .doOnNext(sse -> {
                     System.out.println(sse);
-                    counter.incrementAndGet();
+                    message.append(sse.getData());
                 }).doOnComplete(() -> {
                     latch.countDown();
                 })
@@ -74,6 +75,7 @@ public class LlmChatTest extends HttpTester {
 
         latch.await();
 
-        assert counter.get() > 1;
+        assert message.length() > 0;
+        assert message.toString().endsWith("[DONE]");
     }
 }

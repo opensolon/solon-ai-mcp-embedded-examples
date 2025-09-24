@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 //聊天模型演示
 @RequestMapping("chat")
@@ -31,6 +32,7 @@ public class ChatController {
         SseEmitter emitter = new SseEmitter(0L);
 
         Flux.from(chatModel.prompt(prompt).stream())
+                .subscribeOn(Schedulers.boundedElastic()) //加这个打印效果更好
                 .filter(resp -> resp.hasContent())
                 .map(resp -> resp.getContent())
                 .concatWithValues("[DONE]") //有些前端框架，需要 [DONE] 实识用作识别
