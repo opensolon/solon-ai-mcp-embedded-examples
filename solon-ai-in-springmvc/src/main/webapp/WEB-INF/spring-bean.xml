@@ -19,6 +19,8 @@
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.RestController"/>
+        <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Component"/>
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Service"/>

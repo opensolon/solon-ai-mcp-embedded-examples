@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebFilter;
  * @author noear 2025/10/21 created
  *
  */
-@WebFilter(filterName = "SolonFilter", urlPatterns = "/mcp/*")
+@WebFilter(filterName = "McpServerFilter", urlPatterns = "/mcp/*")
 public class McpServerFilter extends SolonServletFilter implements Filter {
 
 }
