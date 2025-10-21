@@ -8,7 +8,7 @@ solon-ai & solon-ai-mcp & solon-ai-flow 同时支持：java8、java11、java17�
 
 示例内容包括：
 
-* llm
+* llm（需要修改 llm/_Constants 下的常量配置，否则启动会出错）
   * chatModel 基本使用，及单测
   * tool call 基本使用，及单测
   * rag 基本使用，及单测（embeddingModel，repository，splitter）

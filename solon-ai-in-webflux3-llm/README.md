@@ -7,6 +7,13 @@ http://localhost:8080/chat/stream?prompt=hello
 
 
 
+### 提醒
+
+
+* 可以直接运行 `test/java/client/McpClientTest` 单测（会自动启动服务端）
+* Llm 包下的模型，需要先修改本地的模型配置（不然，会出错）
+
+
 ### 示例
 
 | 示例                          | 说明                       |

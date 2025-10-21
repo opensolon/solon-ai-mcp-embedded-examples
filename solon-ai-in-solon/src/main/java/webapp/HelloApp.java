@@ -7,8 +7,6 @@ import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
 import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.annotation.Controller;
-import org.noear.solon.annotation.Get;
-import org.noear.solon.annotation.Mapping;
 import webapp.mcpserver.tool.McpServerTool2;
 
 @Controller

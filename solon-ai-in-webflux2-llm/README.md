@@ -5,6 +5,14 @@ http://localhost:8080/chat/call?prompt=hello
 
 http://localhost:8080/chat/stream?prompt=hello
 
+
+### 提醒
+
+
+* 可以直接运行 `test/java/client/McpClientTest` 单测（会自动启动服务端）
+* Llm 包下的模型，需要先修改本地的模型配置（不然，会出错）
+
+
 ### 示例
 
 | 示例                          | 说明                       |
@@ -18,4 +26,3 @@ http://localhost:8080/chat/stream?prompt=hello
 |                             |                          | 
 | solon-ai-in-webflux2-llm    | 只有 llm 示例（没有 mcp）        |
 | solon-ai-in-webflux3-llm    | 只有 llm 示例（没有 mcp）        |
-
