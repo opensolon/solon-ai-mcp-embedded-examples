@@ -1,13 +1,25 @@
 package webapp.mcpserver;
 
+import io.quarkus.arc.Arc;
+import io.quarkus.arc.ManagedContext;
+import io.quarkus.runtime.Startup;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Any;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
+import jakarta.inject.Singleton;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.PreMatching;
+import jakarta.ws.rs.ext.Provider;
 import org.noear.solon.Solon;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
+import org.noear.solon.ai.embedding.EmbeddingModel;
 import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.IMcpServerEndpoint;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
@@ -15,31 +27,55 @@ import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.web.vertx.VxWebHandler;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import webapp.llm._Constants;
 import webapp.mcpserver.tool.McpServerTool2;
 
 /**
  * 这个类独立一个目录，可以让 Solon 扫描范围最小化
  * */
+@Startup
 @ApplicationScoped
-public class McpServerConfig extends AbstractVerticle {
+public class McpServerConfig  extends AbstractVerticle  {
+
     @Inject
     Router router;
 
     @Inject
-    List<IMcpServerEndpoint> serverEndpoints;
+    @Any
+    Instance<IMcpServerEndpoint> serverEndpoints;
 
-    private final VxWebHandler handler;
 
-    public McpServerConfig() {
-        this.handler = new VxWebHandler();
+    @Inject
+    VxWebHandler handler;
+
+    @Produces
+    @ApplicationScoped
+    public VxWebHandler handler() {
+        System.out.println("=== VxWebHandler ===");
+        return new VxWebHandler();
     }
 
+    public McpServerConfig() {
+       // this.handler = new VxWebHandler();
+    }
+
+    @PostConstruct
     @Override
     public void start() {
+        System.out.println("McpServerConfig.start");
         router.routeWithRegex("/mcp/.*").handler(req -> {
+            System.out.println("=== mcp ===");
+            // 获取上下文
+//            ManagedContext requestContext = Arc.container().requestContext();
+//            // 激活上下文
+//            requestContext.activate();
             handler.handle(req.request());
+            System.out.println("=== mcp end ===");
+//            req.next();
         });
 
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app->{
@@ -76,28 +112,34 @@ public class McpServerConfig extends AbstractVerticle {
         }
     }
 
-    //Spring 组件转为端点
+    // quarkus 组件转为端点
     protected void quarkusCom2Endpoint() {
         //提取实现容器里 IMcpServerEndpoint 接口的 bean ，并注册为服务端点
-        for (IMcpServerEndpoint serverEndpoint : serverEndpoints) {
-            Class<?> serverEndpointClz = serverEndpoint.getClass();
-            McpServerEndpoint anno = serverEndpointClz.getAnnotation(McpServerEndpoint.class);
+        if (serverEndpoints!=null){
 
-            if (anno == null) {
-                continue;
+            for (IMcpServerEndpoint serverEndpoint : serverEndpoints) {
+
+                Class<?> serverEndpointClz = serverEndpoint.getClass();
+                System.out.println("serverEndpoints "+serverEndpointClz.getSimpleName());
+                McpServerEndpoint anno = serverEndpointClz.getAnnotation(McpServerEndpoint.class);
+
+                if (anno == null) {
+                    continue;
+                }
+
+                McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
+                        .from(serverEndpointClz, anno)
+                        .build();
+
+                serverEndpointProvider.addTool(new MethodToolProvider(serverEndpointClz, serverEndpoint));
+                serverEndpointProvider.addResource(new MethodResourceProvider(serverEndpointClz, serverEndpoint));
+                serverEndpointProvider.addPrompt(new MethodPromptProvider(serverEndpointClz, serverEndpoint));
+
+                serverEndpointProvider.postStart();
+
+                //可以再把 serverEndpointProvider 手动转入 SpringBoot 容器
             }
-
-            McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
-                    .from(serverEndpointClz, anno)
-                    .build();
-
-            serverEndpointProvider.addTool(new MethodToolProvider(serverEndpointClz, serverEndpoint));
-            serverEndpointProvider.addResource(new MethodResourceProvider(serverEndpointClz, serverEndpoint));
-            serverEndpointProvider.addPrompt(new MethodPromptProvider(serverEndpointClz, serverEndpoint));
-
-            serverEndpointProvider.postStart();
-
-            //可以再把 serverEndpointProvider 手动转入 SpringBoot 容器
         }
+
     }
 }
