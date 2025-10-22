@@ -1,25 +1,19 @@
 package webapp.mcpserver;
 
-import io.quarkus.arc.Arc;
-import io.quarkus.arc.ManagedContext;
 import io.quarkus.runtime.Startup;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.inject.Inject;
-
-import jakarta.inject.Singleton;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.PreMatching;
-import jakarta.ws.rs.ext.Provider;
 import org.noear.solon.Solon;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
-import org.noear.solon.ai.embedding.EmbeddingModel;
 import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.IMcpServerEndpoint;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
@@ -27,19 +21,16 @@ import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.web.vertx.VxWebHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import webapp.llm._Constants;
 import webapp.mcpserver.tool.McpServerTool2;
+
+import java.util.Set;
 
 /**
  * 这个类独立一个目录，可以让 Solon 扫描范围最小化
  * */
 @Startup
 @ApplicationScoped
-public class McpServerConfig  extends AbstractVerticle  {
+public class McpServerConfig extends AbstractVerticle  {
 
     @Inject
     Router router;
@@ -51,6 +42,9 @@ public class McpServerConfig  extends AbstractVerticle  {
 
     @Inject
     VxWebHandler handler;
+
+    @Inject
+    BeanManager beanManager;  // 注入BeanManager
 
     @Produces
     @ApplicationScoped
@@ -68,14 +62,7 @@ public class McpServerConfig  extends AbstractVerticle  {
     public void start() {
         System.out.println("McpServerConfig.start");
         router.routeWithRegex("/mcp/.*").handler(req -> {
-            System.out.println("=== mcp ===");
-            // 获取上下文
-//            ManagedContext requestContext = Arc.container().requestContext();
-//            // 激活上下文
-//            requestContext.activate();
             handler.handle(req.request());
-            System.out.println("=== mcp end ===");
-//            req.next();
         });
 
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app->{
@@ -116,26 +103,38 @@ public class McpServerConfig  extends AbstractVerticle  {
     protected void quarkusCom2Endpoint() {
         //提取实现容器里 IMcpServerEndpoint 接口的 bean ，并注册为服务端点
         if (serverEndpoints!=null){
-
-            for (IMcpServerEndpoint serverEndpoint : serverEndpoints) {
-
-                Class<?> serverEndpointClz = serverEndpoint.getClass();
-                System.out.println("serverEndpoints "+serverEndpointClz.getSimpleName());
+            Set<Bean<?>> candidateBeans = beanManager.getBeans(IMcpServerEndpoint.class);
+            if (candidateBeans.isEmpty()) {
+                return;
+            }
+            for (Bean<?> serverEndpoint : candidateBeans) {//
+//                System.out.println("bean->"+serverEndpoint.getBeanClass().getName());
+//                System.out.println("name->"+serverEndpoint.getClass().getName());
+                // 2. 获取Bean的原始类（被代理的实际类）
+                Class<?> serverEndpointClz = serverEndpoint.getBeanClass();
+//                Class<?> serverEndpointClz = Class.forName(serverEndpoint.getBeanClass().getName(), false, Thread.currentThread().getContextClassLoader());
                 McpServerEndpoint anno = serverEndpointClz.getAnnotation(McpServerEndpoint.class);
-
                 if (anno == null) {
                     continue;
                 }
 
+                // quarkus 对象 -- 这个其实获取代理类
+                CreationalContext<?> ctx = beanManager.createCreationalContext(serverEndpoint);
+                // 获取实例本身  -- 其实就是 serverEndpoints 里的代理对象，反射方法必须由这里触发
+                Object instance = beanManager.getReference(
+                        serverEndpoint,
+                        serverEndpointClz,
+                        ctx
+                );
                 McpServerEndpointProvider serverEndpointProvider = McpServerEndpointProvider.builder()
                         .from(serverEndpointClz, anno)
                         .build();
-
-                serverEndpointProvider.addTool(new MethodToolProvider(serverEndpointClz, serverEndpoint));
-                serverEndpointProvider.addResource(new MethodResourceProvider(serverEndpointClz, serverEndpoint));
-                serverEndpointProvider.addPrompt(new MethodPromptProvider(serverEndpointClz, serverEndpoint));
-
+                serverEndpointProvider.addTool(new MethodToolProvider(serverEndpointClz, instance));
+                serverEndpointProvider.addResource(new MethodResourceProvider(serverEndpointClz, instance));
+                serverEndpointProvider.addPrompt(new MethodPromptProvider(serverEndpointClz, instance));
                 serverEndpointProvider.postStart();
+                // 再注入 solon 端点 -- 这个可以不需要，服务可以正常响应了
+//                Solon.context().wrapAndPut(serverEndpointProvider.getName(), serverEndpointProvider);
 
                 //可以再把 serverEndpointProvider 手动转入 SpringBoot 容器
             }
