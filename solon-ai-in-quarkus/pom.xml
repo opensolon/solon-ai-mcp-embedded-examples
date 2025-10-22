@@ -66,6 +66,12 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-web-vertx</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
