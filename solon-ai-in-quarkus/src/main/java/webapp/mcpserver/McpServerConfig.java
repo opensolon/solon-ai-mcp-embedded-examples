@@ -21,6 +21,7 @@ import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
 import org.noear.solon.web.vertx.VxWebHandler;
+import webapp.mcpserver.handle.QuarkusHandler;
 import webapp.mcpserver.tool.McpServerTool2;
 
 import java.util.Set;
@@ -41,21 +42,18 @@ public class McpServerConfig extends AbstractVerticle  {
 
 
     @Inject
-    VxWebHandler handler;
+    QuarkusHandler handler;
 
     @Inject
     BeanManager beanManager;  // 注入BeanManager
 
     @Produces
     @ApplicationScoped
-    public VxWebHandler handler() {
-        System.out.println("=== VxWebHandler ===");
-        return new VxWebHandler();
+    public QuarkusHandler handler() {
+        System.out.println("=== QuarkusHandler ===");
+        return new QuarkusHandler();
     }
 
-    public McpServerConfig() {
-       // this.handler = new VxWebHandler();
-    }
 
     @PostConstruct
     @Override
@@ -71,7 +69,7 @@ public class McpServerConfig extends AbstractVerticle  {
             app.filter(new McpServerAuth());
         });
 
-        //手动构建 mcp 服务端点（只是演示，可以去掉）
+        //手动构建 mcp 服务端点（只是演示，可以去掉） -- 目前该模块未打通 quarkus 框架上运行的案例，请使用 quarkusCom2Endpoint() 的方式构建即可
         McpServerEndpointProvider endpointProvider = McpServerEndpointProvider.builder()
                 .name("McpServerTool2")
                 .channel(McpChannel.SSE)
