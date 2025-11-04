@@ -81,19 +81,23 @@ public class QuarkusContext extends ContextBase {
     }
 
     public Object request() {
-        return this._request;
+        return _request;
     }
 
     public String remoteIp() {
-        return this._request.remoteAddress().host();
+        return _request.remoteAddress().host();
     }
 
     public int remotePort() {
-        return this._request.remoteAddress().port();
+        return _request.remoteAddress().port();
+    }
+
+    public int localPort() {
+        return _request.localAddress().port();
     }
 
     public String method() {
-        return this._request.method().name();
+        return _request.method().name();
     }
 
     public String protocol() {
@@ -114,7 +118,7 @@ public class QuarkusContext extends ContextBase {
 
     public String url() {
         if (this._url == null) {
-            String tmp = this._request.absoluteURI();
+            String tmp = _request.absoluteURI();
             int idx = tmp.indexOf(63);
             if (idx < 0) {
                 this._url = tmp;
@@ -135,17 +139,17 @@ public class QuarkusContext extends ContextBase {
     }
 
     public String queryString() {
-        return this._request.query();
+        return _request.query();
     }
 
     public InputStream bodyAsStream() throws IOException {
         if (this.bodyAsStream != null) {
             return this.bodyAsStream;
         } else {
-            if (this._requestBody == null) {
+            if (_requestBody == null) {
                 this.bodyAsStream = new ByteArrayInputStream(new byte[0]);
             } else {
-                this.bodyAsStream = new RequestInputStream(this._requestBody.getByteBuf(), ServerProps.request_maxBodySize);
+                this.bodyAsStream = new RequestInputStream(_requestBody.getByteBuf(), ServerProps.request_maxBodySize);
             }
 
             return this.bodyAsStream;
@@ -176,7 +180,7 @@ public class QuarkusContext extends ContextBase {
                     this.loadMultipartFormData();
                 }
 
-                Iterator var4 = this._request.params().iterator();
+                Iterator var4 = _request.params().iterator();
 
                 Map.Entry<String,String> kv;
                 while(var4.hasNext()) {
@@ -184,7 +188,7 @@ public class QuarkusContext extends ContextBase {
                     this._paramMap.add((String)kv.getKey(), (String) kv.getValue());
                 }
 
-                var4 = this._request.formAttributes().iterator();
+                var4 = _request.formAttributes().iterator();
 
                 while(var4.hasNext()) {
                     kv = (Map.Entry)var4.next();
@@ -218,7 +222,7 @@ public class QuarkusContext extends ContextBase {
     public MultiMap<String> headerMap() {
         if (this._headerMap == null) {
             this._headerMap = new MultiMap();
-            Iterator var1 = this._request.headers().iterator();
+            Iterator var1 = _request.headers().iterator();
 
             while(var1.hasNext()) {
                 Map.Entry<String, String> kv = (Map.Entry)var1.next();

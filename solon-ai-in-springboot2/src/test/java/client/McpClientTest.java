@@ -1,6 +1,5 @@
 package client;
 
-import io.modelcontextprotocol.spec.McpError;
 import org.junit.jupiter.api.Test;
 import org.noear.solon.ai.chat.ChatModel;
 import org.noear.solon.ai.chat.ChatResponse;
@@ -155,7 +154,7 @@ public class McpClientTest {
         }
 
         assert error != null;
-        assert error instanceof McpError;
-        assert error.getMessage().contains("401");
+        assert error instanceof RuntimeException;
+        assert error.getCause().getMessage().contains("401");
     }
 }

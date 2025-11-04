@@ -1,5 +1,6 @@
 package webapp;
 
+import org.noear.solon.Solon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class HelloApp {
     public static void main(String[] args) {
+        if (Solon.app() != null) { //避免单测重复启动
+            return;
+        }
+
         SpringApplication.run(HelloApp.class, args);
     }
 
