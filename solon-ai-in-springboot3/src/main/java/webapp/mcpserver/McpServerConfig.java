@@ -41,6 +41,25 @@ public class McpServerConfig {
 
     @PostConstruct
     public void start() {
+        /**
+         * Spring 注解支持
+         * */
+
+        ToolSchemaUtil.addBodyDetector(e -> e.isAnnotationPresent(RequestBody.class));
+        ToolSchemaUtil.addParamResolver((e,t)->{
+            RequestParam p1Anno = e.getAnnotation(RequestParam.class);
+
+            if (p1Anno != null) { //这个注解因为没有描述字段，所以变量名一定要很语义
+                Parameter p1 = (Parameter) e;
+                String name = Utils.annoAlias(p1Anno.name(), p1.getName());
+                return new ParamDesc(name, t.getGenericType(), p1Anno.required(), "");
+            }
+
+            return null;
+        });
+
+        ///
+
         System.setProperty("server.contextPath", contextPath);
 
         Solon.start(McpServerConfig.class, new String[]{"--cfg=mcpserver.yml"}, app -> {
@@ -72,24 +91,6 @@ public class McpServerConfig {
          * */
 
         springCom2Endpoint();
-
-
-        /**
-         * Spring 注解支持
-         * */
-
-        ToolSchemaUtil.addBodyDetector(e -> e.isAnnotationPresent(RequestBody.class));
-        ToolSchemaUtil.addParamResolver((e,t)->{
-            RequestParam p1Anno = e.getAnnotation(RequestParam.class);
-
-            if (p1Anno != null) { //这个注解因为没有描述字段，所以变量名一定要很语义
-                Parameter p1 = (Parameter) e;
-                String name = Utils.annoAlias(p1Anno.name(), p1.getName());
-                return new ParamDesc(name, t.getGenericType(), p1Anno.required(), "");
-            }
-
-            return null;
-        });
     }
 
     @PreDestroy
