@@ -3,13 +3,16 @@ package webapp.mcpserver;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.noear.solon.Solon;
+import org.noear.solon.Utils;
 import org.noear.solon.ai.chat.tool.MethodToolProvider;
+import org.noear.solon.ai.chat.tool.ToolSchemaUtil;
 import org.noear.solon.ai.mcp.McpChannel;
 import org.noear.solon.ai.mcp.server.IMcpServerEndpoint;
 import org.noear.solon.ai.mcp.server.McpServerEndpointProvider;
 import org.noear.solon.ai.mcp.server.annotation.McpServerEndpoint;
 import org.noear.solon.ai.mcp.server.prompt.MethodPromptProvider;
 import org.noear.solon.ai.mcp.server.resource.MethodResourceProvider;
+import org.noear.solon.ai.util.ParamDesc;
 import org.noear.solon.web.servlet.SolonServletFilter;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,11 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import webapp.mcpserver.tool.McpServerTool2;
 
+import java.lang.reflect.Parameter;
 import java.util.List;
 
 /**
@@ -66,6 +72,24 @@ public class McpServerConfig {
          * */
 
         springCom2Endpoint();
+
+
+        /**
+         * Spring 注解支持
+         * */
+
+        ToolSchemaUtil.addBodyDetector(e -> e.isAnnotationPresent(RequestBody.class));
+        ToolSchemaUtil.addParamResolver((e,t)->{
+            RequestParam p1Anno = e.getAnnotation(RequestParam.class);
+
+            if (p1Anno != null) { //这个注解因为没有描述字段，所以变量名一定要很语义
+                Parameter p1 = (Parameter) e;
+                String name = Utils.annoAlias(p1Anno.name(), p1.getName());
+                return new ParamDesc(name, t.getGenericType(), p1Anno.required(), "");
+            }
+
+            return null;
+        });
     }
 
     @PreDestroy
