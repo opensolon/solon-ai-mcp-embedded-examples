@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
-            <version>3.4.4</version>
+            <version>3.5.5</version>
         </dependency>
 
         <dependency>
