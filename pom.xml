@@ -19,6 +19,7 @@
         <module>solon-ai-in-solon</module>
         <module>solon-ai-in-springboot2</module>
         <module>solon-ai-in-springboot3</module>
+        <module>solon-ai-in-springboot4</module>
         <module>solon-ai-in-springmvc</module>
         <module>solon-ai-in-vertx</module>
         <module>solon-ai-in-webflux2-llm</module>
