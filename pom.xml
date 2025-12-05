@@ -24,6 +24,7 @@
         <module>solon-ai-in-vertx</module>
         <module>solon-ai-in-webflux2-llm</module>
         <module>solon-ai-in-webflux3-llm</module>
+        <module>solon-ai-in-webflux4-llm</module>
     </modules>
 
     <build>

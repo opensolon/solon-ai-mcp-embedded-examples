@@ -1,0 +1,13 @@
+#server.servlet.context-path: "/demo"
+
+
+logging:
+  level:
+    root: debug
+
+server:
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
