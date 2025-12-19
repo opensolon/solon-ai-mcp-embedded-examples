@@ -16,9 +16,12 @@ import java.util.Collection;
 
 /**
  * 自动构建服务端点服务（使用 springboot 容器） //通过 IMcpServerEndpoint 接口，方便自动收集 McpServerEndpoint 组件类
+ *
+ * STREAMABLE_STATELESS，集群时不需要 ip_hash 路由，但不支持向 client 发送变更通知
+ * STREAMABLE 或 SSE，集群时需要 ip_hash 路由
  * */
 @Service
-@McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", mcpEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(channel = McpChannel.STREAMABLE_STATELESS, name="demo1", mcpEndpoint = "/mcp/demo1/sse")
 public class McpServerTool implements IMcpServerEndpoint {
     @Autowired //示例注入 spring bean
     DemoService demoService;

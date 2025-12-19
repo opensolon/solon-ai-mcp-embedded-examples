@@ -13,8 +13,11 @@ import java.util.Collection;
 
 /**
  * 自动构建服务端点服务
+ *
+ * STREAMABLE_STATELESS，集群时不需要 ip_hash 路由，但不支持向 client 发送变更通知
+ * STREAMABLE 或 SSE，集群时需要 ip_hash 路由
  * */
-@McpServerEndpoint(channel = McpChannel.STREAMABLE, name="demo1", mcpEndpoint = "/mcp/demo1/sse")
+@McpServerEndpoint(channel = McpChannel.STREAMABLE_STATELESS, name="demo1", mcpEndpoint = "/mcp/demo1/sse")
 public class McpServerTool {
     //
     // 建议开启编译参数：-parameters （否则，最好再配置参数的 name）
