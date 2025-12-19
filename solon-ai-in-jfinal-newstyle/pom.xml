@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <solon.version>3.8.0-M3</solon.version>
+        <solon.version>3.8.0-M4</solon.version>
     </properties>
 
     <dependencies>
