@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <quarkus.platform.version>3.28.3</quarkus.platform.version>
-        <solon.version>3.8.0</solon.version>
+        <solon.version>3.8.1-M5</solon.version>
 
         <skipITs>true</skipITs>
 
@@ -53,6 +53,11 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-ai-mcp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-ai-agent</artifactId>
         </dependency>
 
         <dependency>
